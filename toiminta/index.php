@@ -29,7 +29,7 @@ include "connect.php";
 
       <!-- Image in Display Container -->
       <div class="w3-display-container w3-content" style="max-width:1150px;">
-        <img class="w3-image" src="images/taustaHD.jpeg" alt="Tausta" width="100%">
+        <img class="w3-image" src="http://localhost/static/images/taustaHD.jpeg" alt="Tausta" width="100%">
       </div>
 
       <div id="sticky">
@@ -125,7 +125,11 @@ include "connect.php";
     </div>
   </div>
 
-  <script type="text/javascript" src="sidebar.js"></script>
+  <script type="text/javascript" src="http://localhost/static/scripts/animation.js"></script>
+  <script type="text/javascript" src="http://localhost/static/scripts/keyboard-accessibility.js"></script>
+  <script type="text/javascript" src="http://localhost/static/scripts/scrollposition.js"></script>
+  <script type="text/javascript" src="http://localhost/static/scripts/sidebar.js"></script>
+  <script type="text/javascript" src="http://localhost/static/scripts/navigationbar.js"></script>
 </body>
 
 </html>

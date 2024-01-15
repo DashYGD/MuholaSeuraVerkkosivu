@@ -17,7 +17,7 @@ include "connect.php";
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body id="base" style="opacity:0;">
@@ -29,7 +29,7 @@ include "connect.php";
 
       <!-- Image in Display Container -->
       <div class="w3-display-container w3-content" style="max-width:1150px;">
-        <img class="w3-image" src="images/taustaHD.jpeg" alt="Tausta" width="100%">
+        <img class="w3-image" src="http://localhost/static/images/taustaHD.jpeg" alt="Tausta" width="100%">
       </div>
 
       <div id="sticky">
@@ -135,8 +135,12 @@ include "connect.php";
       </div>
     </div>
   </div>
-
-  <script type="text/javascript" src="sidebar.js"></script>
+  
+  <script type="text/javascript" src="http://localhost/static/scripts/animation.js"></script>
+  <script type="text/javascript" src="http://localhost/static/scripts/keyboard-accessibility.js"></script>
+  <script type="text/javascript" src="http://localhost/static/scripts/scrollposition.js"></script>
+  <script type="text/javascript" src="http://localhost/static/scripts/sidebar.js"></script>
+  <script type="text/javascript" src="http://localhost/static/scripts/navigationbar.js"></script>
 </body>
 
 </html>
