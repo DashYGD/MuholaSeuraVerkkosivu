@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var scrollPosition = parseInt(scrollPositionCookie) || 0;
     window.scrollTo(0, scrollPosition);
 
-    var form1 = document.getElementById('yourFormId1');
+    var form1 = document.getElementById('form_1');
 
     form1.addEventListener('submit', function () {
         // Set the scroll position before submitting the form
         document.cookie = 'scrollPosition=' + window.scrollY;
     });
 
-    var form2 = document.getElementById('yourFormId2');
+    var form2 = document.getElementById('form_2');
 
     form2.addEventListener('submit', function () {
         // Set the scroll position before submitting the form

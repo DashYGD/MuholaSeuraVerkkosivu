@@ -67,7 +67,7 @@ if (isset($_SESSION['muhola_admin'])) {
     <h2>Etusivu</h2>
     </div>
     
-    <form method="POST" class="w3-container" id="yourFormId1">
+    <form method="POST" class="w3-container" id="form_1">
     <h3>Otsikko</h3>
     <p>
     <div id="editor_1" name="otsikko_1">';
@@ -134,7 +134,7 @@ if (isset($_SESSION['muhola_admin'])) {
     <h2>Tietoa toiminnasta</h2>
     </div>
     
-    <form method="POST" class="w3-container"  id="yourFormId2">
+    <form method="POST" class="w3-container"  id="form_2">
     <h3>Teksti</h3>
     <p>
     <div id="editor_3" name="tietoatoiminta_1">';
