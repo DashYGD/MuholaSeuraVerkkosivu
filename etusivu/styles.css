@@ -5,38 +5,41 @@ body {
     background-attachment: fixed;
 }
 
-.navbar {
-    border-top-style: outset;
-    border-bottom-style: outset;
-}
-#layer {
-    border-style: outset;
-}
-
 
 @media (max-width: 601px) {
-/* Apply styles for screens with a maximum width of 600px */
     body {
-        background-image: none; /* Remove background image for smaller screens */
-        /* Additional styles for smaller screens */
+        background-image: none;
     }
+
     #ytvideo {
         max-height: 270px;
     }
 }
+
 @media (max-width: 993px) {
     #tietoa {
         max-width: 100% !important;
         padding-right: 5%;
     }
+
     #ytvideo {
         height: 400px;
     }
 }
+
 @media (min-width: 993px) {
     #ytvideo {
         height: 320px;
     }
+}
+
+.navbar {
+    border-top-style: outset;
+    border-bottom-style: outset;
+}
+
+#layer {
+    border-style: outset;
 }
 
 
@@ -50,22 +53,23 @@ body {
 .menubutton::after {
     transition: .75s;
     color: white;
-    content: "menu"; 
+    content: "menu";
 }
 
 .openMenu {
-  transition: .75s;
-  transform: rotate(360deg);
+    transition: .75s;
+    transform: rotate(360deg);
 }
 
 .openMenu::after {
     color: black;
-    content: "Close"; 
+    content: "Close";
     transition: .75s;
 }
 
-
-.hidden {visibility: hidden;}
+.hidden {
+    visibility: hidden;
+}
 
 #sticky {
     position: -webkit-sticky; /* Safari */
@@ -86,7 +90,6 @@ body {
     background-color: #333;
 }
 
-
 .bottombar {
     display: flex;
     justify-content: left;
@@ -105,7 +108,6 @@ body {
     font-size: 15px;
 }
 
-
 .center-links {
     display: inline-flex;
     justify-content: center;
@@ -122,7 +124,6 @@ body {
     font-size: 18px;
 }
 
-
 .center-links a:hover {
     background-color: grey;
 }
@@ -131,7 +132,8 @@ body {
     display: flex;
 }
 
-.right-buttons button, .right-buttons a {
+.right-buttons button,
+.right-buttons a {
     display: flex;
     text-align: center;
     cursor: pointer;
@@ -160,12 +162,13 @@ body {
     outline: 4px dashed blue;
     z-index: 5;
 }
+
 body.using-mouse :focus {
     outline: none;
 }
 
 #right-containers {
-    width: 20%; /* Set the initial width for larger screens */
+    width: 20%;
     background-color: #f0f0f0;
     padding: 20px;
     box-sizing: border-box;
@@ -173,19 +176,21 @@ body.using-mouse :focus {
     overflow-y: auto; /* Enable scrolling if content overflows */
 }
 
-
-#tapahtumakalenteri header, #hinnasto header{
+#tapahtumakalenteri header,
+#hinnasto header {
     background-color: #333;
     color: white;
 }
 
-#tapahtumakalenteri a, #hinnasto a{
+#tapahtumakalenteri a,
+#hinnasto a {
     width: 100%;
     text-decoration: none;
     background-color: black;
     color: white;
 }
 
-#tapahtumakalenteri footer:hover, #hinnasto footer:hover{
+#tapahtumakalenteri footer:hover,
+#hinnasto footer:hover {
     background-color: grey;
 }

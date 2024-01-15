@@ -5,28 +5,28 @@ body {
     background-attachment: fixed;
 }
 
+
+@media (max-width: 601px) {
+    body {
+        background-image: none;
+    }
+}
+
+@media (max-width: 991px) {
+    #tietoa {
+        max-width: 100% !important;
+        padding-right: 5%;
+    }
+}
+
 .navbar {
     border-top-style: outset;
     border-bottom-style: outset;
 }
+
 #layer {
     border-style: outset;
 }
-
-
-@media (max-width: 601px) {
-/* Apply styles for screens with a maximum width of 600px */
-    body {
-        background-image: none; /* Remove background image for smaller screens */
-        /* Additional styles for smaller screens */
-    }
-}
-@media (max-width: 991px) {
-        #tietoa {
-            max-width: 100% !important;
-            padding-right: 5%;
-        }
-    }
 
 
 .menubutton {
@@ -39,22 +39,23 @@ body {
 .menubutton::after {
     transition: .75s;
     color: white;
-    content: "menu"; 
+    content: "menu";
 }
 
 .openMenu {
-  transition: .75s;
-  transform: rotate(360deg);
+    transition: .75s;
+    transform: rotate(360deg);
 }
 
 .openMenu::after {
     color: black;
-    content: "Close"; 
+    content: "Close";
     transition: .75s;
 }
 
-
-.hidden {visibility: hidden;}
+.hidden {
+    visibility: hidden;
+}
 
 #sticky {
     position: -webkit-sticky; /* Safari */
@@ -109,7 +110,6 @@ body {
     font-size: 18px;
 }
 
-
 .center-links a:hover {
     background-color: grey;
 }
@@ -118,7 +118,8 @@ body {
     display: flex;
 }
 
-.right-buttons button, .right-buttons a {
+.right-buttons button,
+.right-buttons a {
     display: flex;
     text-align: center;
     cursor: pointer;
@@ -147,32 +148,35 @@ body {
     outline: 4px dashed blue;
     z-index: 5;
 }
+
 body.using-mouse :focus {
     outline: none;
 }
 
 #right-containers {
-    width: 20%; /* Set the initial width for larger screens */
+    width: 20%; 
     background-color: #f0f0f0;
     padding: 20px;
     box-sizing: border-box;
-    height: 100vh; /* Make it full height of the viewport */
-    overflow-y: auto; /* Enable scrolling if content overflows */
+    height: 100vh;
+    overflow-y: auto;
 }
 
-
-#tapahtumakalenteri header, #hinnasto header{
+#tapahtumakalenteri header,
+#hinnasto header {
     background-color: #333;
     color: white;
 }
 
-#tapahtumakalenteri a, #hinnasto a{
+#tapahtumakalenteri a,
+#hinnasto a {
     width: 100%;
     text-decoration: none;
     background-color: black;
     color: white;
 }
 
-#tapahtumakalenteri footer:hover, #hinnasto footer:hover{
+#tapahtumakalenteri footer:hover,
+#hinnasto footer:hover {
     background-color: grey;
 }
