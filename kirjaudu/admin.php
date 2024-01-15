@@ -198,7 +198,7 @@ if (isset($_SESSION['muhola_admin'])) {
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-beta.0/dist/quill.js"></script>
     <script type="text/javascript" src="scripts/scrollposition.js"></script> 
     <script type="text/javascript" src="scripts/quill.js"></script>
-    <script type="text/javascript" src="https://localhost/static/scripts/animation.js"></script>
+    <script type="text/javascript" src="../static/scripts/animation.js"></script>
     ';
 } else {
     header('Location: login');

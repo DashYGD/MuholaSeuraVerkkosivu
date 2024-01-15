@@ -9,7 +9,7 @@ include "connect.php";
   <meta charset="UTF-8">
   <title>Muhola Seuran Kotisivut</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="http://localhost/static\images\favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../static\images\favicon.ico">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/W3.css"> <!-- W3Schoolsin bootstrap -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
@@ -29,7 +29,7 @@ include "connect.php";
 
       <!-- Image in Display Container -->
       <div class="w3-display-container w3-content" style="max-width:1150px;">
-        <img class="w3-image" src="http://localhost/static/images/taustaHD.jpeg" alt="Tausta" width="100%">
+        <img class="w3-image" src="../static/images/taustaHD.jpeg" alt="Tausta" width="100%">
       </div>
 
       <div id="sticky">
@@ -125,11 +125,11 @@ include "connect.php";
     </div>
   </div>
 
-  <script type="text/javascript" src="http://localhost/static/scripts/animation.js"></script>
-  <script type="text/javascript" src="http://localhost/static/scripts/keyboard-accessibility.js"></script>
-  <script type="text/javascript" src="http://localhost/static/scripts/scrollposition.js"></script>
-  <script type="text/javascript" src="http://localhost/static/scripts/sidebar.js"></script>
-  <script type="text/javascript" src="http://localhost/static/scripts/navigationbar.js"></script>
+  <script type="text/javascript" src="../static/scripts/animation.js"></script>
+  <script type="text/javascript" src="../static/scripts/keyboard-accessibility.js"></script>
+  <script type="text/javascript" src="../static/scripts/scrollposition.js"></script>
+  <script type="text/javascript" src="../static/scripts/sidebar.js"></script>
+  <script type="text/javascript" src="../static/scripts/navigationbar.js"></script>
 </body>
 
 </html>

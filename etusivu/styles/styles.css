@@ -1,5 +1,5 @@
 body {
-    background-image: url("http://localhost/static/images/laajalahti5.jpg");
+    background-image: url("../../static/images/laajalahti5.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
