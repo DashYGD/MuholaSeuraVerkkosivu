@@ -9,7 +9,7 @@ include "connect.php";
   <meta charset="UTF-8">
   <title>Muhola Seuran Kotisivut</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="http://localhost/static\images\favicon.ico">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/W3.css"> <!-- W3Schoolsin bootstrap -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
