@@ -2,7 +2,7 @@ window.addEventListener('load', function() {
     function addAnimation() {
         setTimeout(function () {
             document.getElementById('base').classList.add('w3-animate-top');
-            document.getElementById('base').style.opacity = "100";
+            document.getElementById('base').style.opacity = "1";
         }, 500); // Adjust the delay as needed
     }
     // Check screen width on load and add animation if below 1024px

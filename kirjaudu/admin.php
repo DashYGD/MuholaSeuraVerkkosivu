@@ -55,7 +55,7 @@ if (isset($_SESSION['muhola_admin'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-beta.0/dist/quill.snow.css" rel="stylesheet" />
-    <body>';
+    <body id="base" style="opacity:0;">';
 
     echo '<div class="w3-container">
     <h2>Muokkaa verkkosivun sisältöä</h2>
@@ -197,7 +197,8 @@ if (isset($_SESSION['muhola_admin'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-beta.0/dist/quill.js"></script>
     <script type="text/javascript" src="scripts/scrollposition.js"></script> 
-    <script type="text/javascript" src="scripts/quill.js"></script> 
+    <script type="text/javascript" src="scripts/quill.js"></script>
+    <script type="text/javascript" src="https://localhost/static/scripts/animation.js"></script>
     ';
 } else {
     header('Location: login');
