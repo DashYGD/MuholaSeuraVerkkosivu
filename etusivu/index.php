@@ -103,9 +103,9 @@ include "connect.php";
                 <div class="arrow left" onclick="prevDay()">&lt;</div>
 
                 <div class="days-container">
-                  <div id="day1" class="day" onclick="showEventInfo(getDayValue(-1))"></div>
-                  <div id="day2" class="day" onclick="showEventInfo(getDayValue(0))"></div>
-                  <div id="day3" class="day" onclick="showEventInfo(getDayValue(1))"></div>
+                  <div id="day1" class="day" onclick="showEventInfo(getDayValueWithDot(-1))"></div>
+                  <div id="day2" class="day" onclick="showEventInfo(getDayValueWithDot(0))"></div>
+                  <div id="day3" class="day" onclick="showEventInfo(getDayValueWithDot(1))"></div>
                 </div>
 
                 <div class="arrow right" onclick="nextDay()">&gt;</div>
