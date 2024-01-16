@@ -7,14 +7,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var form1 = document.getElementById('form_1');
 
     form1.addEventListener('submit', function () {
-        // Set the scroll position before submitting the form
         document.cookie = 'scrollPosition=' + window.scrollY;
     });
 
     var form2 = document.getElementById('form_2');
 
     form2.addEventListener('submit', function () {
-        // Set the scroll position before submitting the form
         document.cookie = 'scrollPosition=' + window.scrollY;
     });
 

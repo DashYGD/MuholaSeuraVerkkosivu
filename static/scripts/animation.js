@@ -3,9 +3,8 @@ window.addEventListener('load', function() {
         setTimeout(function () {
             document.getElementById('base').classList.add('w3-animate-top');
             document.getElementById('base').style.opacity = "1";
-        }, 500); // Adjust the delay as needed
+        }, 500);
     }
-    // Check screen width on load and add animation if below 1024px
     if (window.innerWidth > 991) {
         addAnimation();
     } else {

@@ -18,6 +18,7 @@ include "connect.php";
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="../static/styles/core.css">
 </head>
 
 <body id="base" style="opacity:0;">
@@ -82,8 +83,27 @@ include "connect.php";
               <h1>Tapahtumakalenteri</h1>
             </header>
 
-            <div class="w3-container">
-              <p>Lorem ipsum...</p>
+            <div class="calendar-container">
+
+              <div class="calendar-padding" id="row_1">
+                <div class="calendar-header w3-bar-item" id="calendarHeader"></div>
+              </div>
+
+              <div class="calendar-padding" id="row_2">
+                <div class="arrow left" onclick="prevDay()">&lt;</div>
+
+                <div class="days-container">
+                  <div id="day1" class="day" onclick="showEventInfo(getDayValue(-1))"></div>
+                  <div id="day2" class="day" onclick="showEventInfo(getDayValue(0))"></div>
+                  <div id="day3" class="day" onclick="showEventInfo(getDayValue(1))"></div>
+                </div>
+
+                <div class="arrow right" onclick="nextDay()">&gt;</div>
+              </div>
+
+              <div class="calendar-overlay" id="overlay">
+                <div id="eventInfo"></div>
+              </div>
             </div>
 
             <a href="/tapahtumakalenteri" class="footer-link w3-button">
@@ -130,6 +150,7 @@ include "connect.php";
   <script type="text/javascript" src="../static/scripts/scrollposition.js"></script>
   <script type="text/javascript" src="../static/scripts/sidebar.js"></script>
   <script type="text/javascript" src="../static/scripts/navigationbar.js"></script>
+  <script type="text/javascript" src="../static/scripts/eventcalendar.js"></script>
 </body>
 
 </html>
