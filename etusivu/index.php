@@ -1,5 +1,5 @@
 <?php
-include "connect.php";
+include "../static/server/connect.php";
 ?>
 
 <!DOCTYPE html>
@@ -54,10 +54,11 @@ include "connect.php";
         </div>
 
         <div class="mySidebar" id="sidebar">
-          <div class="w3-white w3-card w3-bar-block w3-animate-opacity" style="display: none; z-index: 5; max-width: 40%; position: absolute; right: 0; border-top-style: outset; border-bottom-style: outset;" id="mySidebar">
+          <div class="sidebar w3-white w3-card w3-bar-block w3-animate-opacity" id="mySidebar">
             <a href="/etusivu" class="w3-bar-item w3-button">Etusivu</a>
             <a href="/toiminta" class="w3-bar-item w3-button">Toiminta</a>
             <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
+            <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
           </div>
         </div>
       </div>
@@ -83,7 +84,7 @@ include "connect.php";
             ?>
           </p>
           <div id="ytvideo" SameSite="none" style="width:100% max-height:500px;">
-            <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/tgbNymZ7vqY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/tgbNym7vqY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
 
@@ -91,24 +92,21 @@ include "connect.php";
           <div class="w3-card-4" style="max-width: 100%; text-align:center; overflow: hidden;">
 
             <header class="w3-container">
-              <h1>Tapahtumakalenteri</h1>
+              <h1>Tapahtumat</h1>
             </header>
             <div class="calendar-container">
 
             <div class="calendar-padding" id="row_1">
-              <div class="calendar-header w3-bar-item" id="calendarHeader"></div>
+              <div class="calendar-header" id="calendarHeader"></div>
             </div>
 
               <div class="calendar-padding" id="row_2">
-                <div class="arrow left" onclick="prevDay()">&lt;</div>
 
                 <div class="days-container">
-                  <div id="day1" class="day" onclick="showEventInfo(getDayValueWithDot(-1))"></div>
-                  <div id="day2" class="day" onclick="showEventInfo(getDayValueWithDot(0))"></div>
-                  <div id="day3" class="day" onclick="showEventInfo(getDayValueWithDot(1))"></div>
+                  <div id="day1" class="day left" onclick="prevDay()"></div>
+                  <div id="day2" class="day middle" onclick="showEventInfo(getDayValueWithDot(0))"></div>
+                  <div id="day3" class="day right" onclick="nextDay()"></div>
                 </div>
-
-                <div class="arrow right" onclick="nextDay()">&gt;</div>
               </div>
 
               <div class="calendar-overlay" id="overlay">
@@ -117,7 +115,7 @@ include "connect.php";
             </div>
 
             <a href="/tapahtumakalenteri" class="footer-link w3-button">
-              <h5><b>LISÄÄ</b></h5>
+              <h5></h5>
             </a>
           </div>
         </div>
@@ -160,7 +158,7 @@ include "connect.php";
   <script type="text/javascript" src="../static/scripts/scrollposition.js"></script>
   <script type="text/javascript" src="../static/scripts/sidebar.js"></script>
   <script type="text/javascript" src="../static/scripts/navigationbar.js"></script>
-  <script type="text/javascript" src="../static/scripts/eventcalendar.js"></script>
+  <script type="text/javascript" src="../static/scripts/eventcalendarwidget.js"></script>
 </body>
 
 </html>

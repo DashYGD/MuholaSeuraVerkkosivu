@@ -1,3 +1,146 @@
+body {
+background-image: url("../../static/images/laajalahti5.jpg");
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+
+
+.navbar {
+border-top-style: outset;
+border-bottom-style: outset;
+}
+
+#layer {
+border-style: outset;
+}
+
+.menubutton {
+display: inline-block;
+text-align: middle;
+transition: .75s;
+transform: rotate(-360deg);
+}
+
+.menubutton::after {
+transition: .75s;
+color: white;
+content: "menu";
+}
+
+.openMenu {
+transition: .75s;
+transform: rotate(360deg);
+}
+
+.openMenu::after {
+color: black;
+content: "Close";
+transition: .75s;
+}
+
+.hidden {
+visibility: hidden;
+}
+
+#sticky {
+position: -webkit-sticky; /* Safari */
+position: sticky;
+top: 0;
+z-index: 1000;
+}
+
+.navbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+list-style-type: none;
+margin: 0;
+padding: 0;
+overflow: hidden;
+background-color: #333;
+}
+
+.sidebar {
+display: none; z-index: 5; max-width: 60%; position: absolute; right: 0; border-top-style: outset; border-bottom-style: outset;
+}
+
+.bottombar {
+display: flex;
+justify-content: left;
+width: 100%;
+list-style-type: none;
+overflow: hidden;
+background-color: #333;
+color: white;
+}
+
+.bottombar span {
+display: flex;
+padding: 12px 15px;
+font-size: 15px;
+}
+
+.center-links {
+display: inline-flex;
+justify-content: center;
+width: 100%;
+}
+
+.center-links a {
+display: flex;
+justify-content: center;
+padding: 12px 15px;
+background-color: #333;
+color: #f2f2f2;
+text-decoration: none;
+font-size: 18px;
+}
+
+.center-links a:hover {
+background-color: grey;
+}
+
+.right-buttons {
+display: flex;
+}
+
+.right-buttons button,
+.right-buttons a {
+display: flex;
+text-align: center;
+cursor: pointer;
+padding: 14px 12px;
+background-color: #333;
+color: #f2f2f2;
+text-decoration: none;
+}
+
+.left-buttons {
+display: flex;
+}
+
+.left-buttons button {
+display: flex;
+cursor: pointer;
+text-align: center;
+padding: 14px 12px;
+background-color: #333;
+color: #f2f2f2;
+text-decoration: none;
+border-style: none;
+}
+
+#right-containers {
+width: 20%;
+background-color: #f0f0f0;
+padding: 20px;
+box-sizing: border-box;
+height: 100vh;
+overflow-y: auto;
+}
+
 #tapahtumakalenteri header,
 #hinnasto header {
 background-color: #333;
@@ -39,7 +182,7 @@ justify-content: center;
 #row_2 {
 display: flex;
 justify-content: center;
-padding-bottom: 10px;
+padding-bottom: 20px;
 }
 
 .arrow {
@@ -61,17 +204,8 @@ margin-right: 10px;
 .days-container {
 width: 100%;
 display: flex;
-justify-content: center;
-}
-
-.day {
-width: 100px;
-height: 100px;
-background-color: lightgray;
-display: flex;
-align-items: center;
-justify-content: center;
-cursor: pointer;
+justify-content: space-between;
+overflow: hidden;
 }
 
 .calendar-overlay {
@@ -100,8 +234,8 @@ display: flex;
 .calendar-header {
 display: inline-flex;
 margin-bottom: 10px;
-max-height: 25px;
-font-size: 20px !important;
+max-height: 35px;
+font-size: 28px !important;
 }
 
 :focus {
@@ -111,4 +245,30 @@ z-index: 5;
 
 body.using-mouse :focus {
 outline: none;
+}
+
+.day {
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: grey;
+margin-top: auto;
+margin-bottom: auto;
+cursor: pointer;
+}
+
+.day.middle {
+height: 200px;
+width: 200px;
+font-size: 25px;
+}
+.day.left {
+height: 120px;
+width: 120px;
+padding-left: 10px;
+}
+.day.right {
+height: 120px;
+width: 120px;
+padding-right: 10px;
 }

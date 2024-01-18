@@ -9,7 +9,7 @@ ErrorDocument 403 /error/ERROR403.html
 
 RewriteCond %{REQUEST_FILENAME} -f 
 RewriteCond %{THE_REQUEST} \/$|\.php\ HTTP [NC] 
-RewriteRule ^(.*)$ - [L,R=404] 
+RewriteRule ^(.*)$ - [L,R] 
 
 RewriteRule ^$ /etusivu [L,R=302]
 
