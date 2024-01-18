@@ -34,7 +34,7 @@
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
     #calendar {
         order: 2;
     }
@@ -51,7 +51,7 @@
     }
 }
 
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 650px) {
     #calendar {
         order: 0;
     }
