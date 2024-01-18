@@ -18,9 +18,10 @@ include "../static/server/connect.php";
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
   <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="../static/styles/core.css">
 </head>
 
-<body id="base" style="opacity:0;">
+<body id="base" style="opacity:0;"> <!-- Sivulla ei näy mitään, koska tuo mysql:stä haettu kuvan path ei toimi, sitkun toimii niin pitäisi animaatiokin toimia -->
   <button id="scrollPositionBtn" style="display: none;"></button>
   <!-- Page Start -->
   <div id="home" class="bg w3-content" style="max-width:1564px; max-height:2100px;">
@@ -59,7 +60,6 @@ include "../static/server/connect.php";
             <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
           </div>
         </div>
-
       </div>
 
       <!--About-->
@@ -73,49 +73,6 @@ include "../static/server/connect.php";
             echo $row["kuva_tietoa"];
           }
           ?>
-        </div>
-
-        <div id="tapahtumakalenteri" class="w3-display-container w3-right w3-content w3-padding-48 w3-hide-small w3-hide-medium" style="max-width:40%; width:100%; margin-left:1%; margin-right:3%;">
-          <div class="w3-card-4" style="max-width: 100%; text-align:center; overflow: hidden;">
-
-            <header class="w3-container">
-              <h1>Tapahtumakalenteri</h1>
-            </header>
-
-            <div class="w3-container">
-              <p>Lorem ipsum...</p>
-            </div>
-
-            <a href="/tapahtumakalenteri" class="footer-link w3-button">
-              <h5><b>LISÄÄ</b></h5>
-            </a>
-          </div>
-        </div>
-
-        <div id="hinnasto" class="w3-display-container w3-right w3-content w3-padding-16 w3-hide-small w3-hide-medium" style="max-width:40%; width:100%; margin-left:1%; margin-right:3%; padding-bottom:5% !important;">
-          <div class="w3-card-4" style="max-width: 100%; text-align:center; overflow: hidden;">
-
-            <header class="w3-container">
-              <h1>Hinnasto</h1>
-            </header>
-
-            <div class="w3-container">
-              <p>KYLÄTALO VUOKRATTAVISSA erilaisiin tilaisuuksiin edullisesti. Astiasto 100: lle henkilölle.</p>
-            </div>
-
-            <div class="w3-container">
-              <p><b>Vuokrahinnasto 2023-</b><br><br>
-                Kokousvuokra 40,00 €<br>
-                Päivävuokra 150,00 €<br>
-                Viikonloppuvuokra 300,00 €<br><br>
-                Tiedustelut/varaukset Asko Rekonen
-              </p>
-            </div>
-
-            <a href="/kirjaudu" class="footer-link w3-button">
-              <h5><b>VARAA</b></h5>
-            </a>
-          </div>
         </div>
 
         <div id="bottombar" class="bottombar">
