@@ -26,7 +26,7 @@ include "../static/server/connect.php";
   <!-- Page Start -->
   <div id="home" class="bg w3-content" style="max-width:1564px; max-height:2100px;">
 
-    <div id="layer" class="w3-content w3-white" style="max-width:1150px; max-height:2100px;">
+    <div id="layer" class="w3-content w3-white" style="max-width:1150px; max-height:5000px;">
 
       <!-- Image in Display Container -->
       <div class="w3-display-container w3-content" style="max-width:1150px;">
@@ -63,7 +63,7 @@ include "../static/server/connect.php";
       </div>
 
       <!--About-->
-      <div id="kuvagalleria" class="gallery-container w3-display-container w3-content w3-padding-16" style="max-width:1150px; max-height:3000px;">
+      <div id="kuvagalleria" class="gallery-container w3-display-container w3-content w3-padding-16" style="max-width:1150px; max-height:5000px;">
            <?php
           $sql = "SELECT * FROM kuvagalleria";
           $result = $conn->query($sql);

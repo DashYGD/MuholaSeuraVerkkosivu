@@ -88,8 +88,8 @@ include "../static/server/connect.php";
           </div>
         </div>
 
-        <div id="tapahtumakalenteri" class="w3-display-container w3-right w3-content w3-padding-48 w3-hide-small w3-hide-medium" style="max-width:40%; width:100%; margin-left:1%; margin-right:3%;">
-          <div class="w3-card-4" style="max-width: 100%; text-align:center; overflow: hidden;">
+        <div id="tapahtumakalenteri" class="w3-display-container w3-right w3-content w3-padding-48 w3-hide-small w3-hide-medium">
+          <div class="w3-card-4 kalenteri">
 
             <header class="w3-container">
               <h1>Tapahtumat</h1>
