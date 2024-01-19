@@ -63,14 +63,19 @@ include "../static/server/connect.php";
       </div>
 
       <!--About-->
-      <div id="kuvagalleria" class="w3-left w3-content w3-padding-16" style="max-width:1150px; max-height:2100px;">
+      <div id="kuvagalleria" class="gallery-container w3-display-container w3-content w3-padding-16" style="max-width:1150px; max-height:3000px;">
            <?php
           $sql = "SELECT * FROM kuvagalleria";
           $result = $conn->query($sql);
           while ($row = $result->fetch_assoc()) {
-            echo "" . $row["kuva_otsikko"];
-            echo "<img src='" . $row["kuva"] . "' alt='testi_kuva' style='width:100%;'><br>";
-            echo $row["kuva_tietoa"];
+            echo '
+            <div class="gallery">
+            <div class="img-title">' . $row["kuva_otsikko"] . '</div>';
+            echo '<a target="_blank" href="' . $row['kuva'] . '">';
+            echo '<img src="' . $row["kuva"] . '" alt="testi_kuva"><br>';
+            echo '</a>
+            <div class="img-desc">'. $row["kuva_tietoa"] . '</div>
+          </div>';
           }
           ?>
         </div>
