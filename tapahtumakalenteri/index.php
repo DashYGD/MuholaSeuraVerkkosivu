@@ -2,6 +2,7 @@
 include "../static/server/connect.php";
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 

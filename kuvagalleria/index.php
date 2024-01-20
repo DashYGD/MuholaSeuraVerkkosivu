@@ -74,7 +74,7 @@ include "../static/server/connect.php";
             echo '<a target="_blank" href="' . $row['kuva'] . '">';
             echo '<img src="' . $row["kuva"] . '" alt="testi_kuva"><br>';
             echo '</a>
-            <div class="img-desc">'. $row["kuva_tietoa"] . '</div>
+            <div class="img-desc"><p>'. $row["kuva_tietoa"] . '</p></div>
           </div>';
           }
           ?>

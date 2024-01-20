@@ -104,7 +104,7 @@ include "../static/server/connect.php";
 
                 <div class="days-container">
                   <div id="day1" class="day left" onclick="prevDay()"></div>
-                  <div id="day2" class="day middle" onclick="showEventInfo(getDayValueWithDot(0))"></div>
+                  <div id="day2" class="day middle" onclick="showEventInfo(getDayValue(0))"></div>
                   <div id="day3" class="day right" onclick="nextDay()"></div>
                 </div>
               </div>

@@ -1,15 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     var eventDetailsContainer = document.getElementById('eventDetails');
-    var initialEvents = [
-        { title: 'Test Event 1', date: '2024-01-21', description: 'Description for Test Event 1' },
-        { title: 'Test Event 2', date: '2024-01-22', description: 'Description for Test Event 2' },
-        { title: 'Test Event 3', date: '2024-01-23', description: 'Description for Test Event 3' }
-    ];
 
     var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
         initialView: 'dayGridMonth',
         locale: 'fi',
-        events: initialEvents,
+        events: '../static/server/fetchEvents.php', // Replace with the actual path to your PHP script
         eventClick: function (info) {
             var clickedEvent = info.event;
             var eventDetailsContainer = document.getElementById('eventDetails');
