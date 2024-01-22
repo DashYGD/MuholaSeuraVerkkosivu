@@ -3,6 +3,13 @@ background-image: url("../../static/images/laajalahti5.jpg");
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;
+overflow: hidden;
+}
+
+.fc-toolbar { text-transform: capitalize; }
+
+.fc-col-header-cell-cushion {
+    text-transform: capitalize;
 }
 
 
@@ -11,7 +18,7 @@ border-top-style: outset;
 border-bottom-style: outset;
 }
 
-#layer {
+#layer_1 {
 border-style: outset;
 }
 

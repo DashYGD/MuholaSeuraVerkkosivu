@@ -71,7 +71,10 @@ include "../static/server/connect.php";
         <div id="layer_2" class="w3-content w3-white" style="max-width:1150px; max-height:1500px; justify-content: center;">
             <div id="calendar-container">
                 <div id="calendar"></div>
-                <div id="eventDetails"></div>
+                <div id="eventOverlay">
+                
+                </div>
+                    <div id="eventDetails"></div>
             </div>
         </div>
 

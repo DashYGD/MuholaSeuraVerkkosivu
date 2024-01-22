@@ -1,70 +1,53 @@
 #calendar {
-    width: 100%;
-    padding: 20px;
+width: 100%;
+padding: 20px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+border: 2px solid #ccc;
+border-radius: 8px;
+}
+
+#eventOverlay {
+display: none;
+position: fixed;
+top: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+z-index: 1000;
 }
 
 
 #eventDetails {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    max-width: 20%;
-    margin: 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    overflow: hidden;
-    border-radius: 8px;    
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+flex-direction: column;
+display: none;
+position: fixed; /* Change to fixed for centering in the viewport */
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+padding: 2%;
+width: 100%; /* Adjust the width as needed */
+max-width: 650px;
+height: 100%; /* Adjust the height as needed */
+max-height: 500px;
+justify-content: center;
+align-items: center;
+border: 1px solid #ccc;
+overflow: auto; /* Use 'auto' to show scrollbar only when needed */
+border-radius: 8px;
+background: white;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+z-index: 1001;
+
 }
 
 
 
 #calendar-container {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    overflow: hidden;
-    padding: 2%;
-}
-
-
-@media screen and (max-width: 900px) {
-    #calendar {
-        order: 2;
-    }
-
-    #eventDetails {
-            position: absolute;
-            height: auto;
-            background: rgba(255, 255, 255, 0.9);
-            z-index: 999;
-            display: none;
-            border-radius: 8px;
-            max-width: 80%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-}
-
-@media screen and (max-width: 650px) {
-    #calendar {
-        order: 0;
-    }
-
-    #eventDetails {
-        position: relative;
-        height: auto;
-        background: rgba(255, 255, 255, 0.9);
-        z-index: 999;
-        display: none;
-        max-width: 80%;
-    }
-    #calendar-container {
-        flex-direction: column;
-    }
+display: flex;
+position: relative;
+justify-content: center;
+align-items: center;
+flex: 1;
+overflow: hidden;
+padding: 2%;
 }

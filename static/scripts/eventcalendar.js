@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     var eventDetailsContainer = document.getElementById('eventDetails');
+    var eventDetailsOverlay = document.getElementById('eventOverlay');
 
     var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
         initialView: 'dayGridMonth',
@@ -8,52 +9,37 @@ document.addEventListener('DOMContentLoaded', function () {
         eventClick: function (info) {
             var clickedEvent = info.event;
             var eventDetailsContainer = document.getElementById('eventDetails');
-
-            if (eventDetailsContainer.style.display === 'flex' && eventDetailsContainer.innerHTML.includes(clickedEvent.title)) {
-                checkScreenWidth_1();
-            } else {
                 eventDetailsContainer.innerHTML = `<strong>${clickedEvent.title}</strong><br>Date: ${clickedEvent.start.toLocaleDateString('fi-FI')}<br>Description: ${clickedEvent.extendedProps.description}`;
                 eventDetailsContainer.style.display = 'flex';
-            }
+                eventDetailsOverlay.style.display = 'flex';
         }
     });
 
     calendar.render();
-
-    function checkScreenWidth_1() {
-        var eventDetailsContainer = document.getElementById('eventDetails');
-        if (window.innerWidth <= 650) {
-            eventDetailsContainer.style.display = 'none';
-        }
-    }
 
     function isEventDetailsFlex() {
         return window.getComputedStyle(eventDetailsContainer).display === 'flex';
     }
 
     document.addEventListener('click', function (event) {
-        if (window.innerWidth >= 651 && window.innerWidth <= 900) {
             var eventDetailsContainer = document.getElementById('eventDetails');
+            var eventDetailsOverlay = document.getElementById('eventOverlay');
             var calendarContainer = document.querySelector('.fc-daygrid-day-events');
 
             if (!eventDetailsContainer.contains(event.target) && event.target !== calendarContainer) {
                 var isCalendarEvent = event.target.closest('.fc-event, .fc-event-action');
-
-                setTimeout(function () {
                     if (isEventDetailsFlex() && !isCalendarEvent) {
                         console.log('EventDetails is set to flex');
                         eventDetailsContainer.style.display = 'none';
+                        eventDetailsOverlay.style.display = 'none';
                     }
-                }, 50);
-            }
         }
     });
 
-    function checkScreenWidth_2() {
-        if (window.innerWidth >= 900) {
-            eventDetailsContainer.style.display = 'flex';
-        }
+    function checkScreenWidth_1() {
+            eventDetailsContainer.style.display = 'none';
+            eventDetailsOverlay.style.display = 'none';
     }
 
-    window.addEventListener('resize', checkScreenWidth_2);
+    window.addEventListener('resize', checkScreenWidth_1);
 });
