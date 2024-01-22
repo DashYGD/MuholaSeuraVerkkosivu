@@ -4,12 +4,23 @@
         <title>kirjautuminen</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="../static/styles/core.css">
     </head>
 <body>
-<div class="w3-container">
-<h2>Muhola Seura ry kirjautuminen</h2>
-<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-blue w3-large">Kirjaudu</button>
 
+<div class="w3-container">
+
+<div id="home" class="bg w3-content" style="max-width:1564px; max-height:2100px;">
+
+<div id="layer" class="w3-content w3-white" style="max-width:1150px; max-height:2100px;">
+
+<div class="w3-display-container w3-content" style="max-width:1150px;">
+        <img class="w3-image" src="../static/images/taustaHD.jpeg" alt="Tausta" width="100%">
+      </div>
+    <center>
+<h2>Muhola Seura Ry Kirjautuminen</h2>
+<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-blue w3-large" style="margin-bottom: 20px;">Kirjaudu</button>
+</center>
 <div id="id01" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width: 600px">
 
