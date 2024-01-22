@@ -91,11 +91,14 @@ include "../static/server/connect.php";
         <div id="tapahtumakalenteri" class="w3-display-container w3-right w3-content w3-padding-48 w3-hide-small w3-hide-medium">
           <div class="w3-card-4 kalenteri">
 
-            <header class="w3-container">
+            <header class="header w3-container">
+              
+            <button id="nearestEventButton" onclick="findEvent('-')"><span>&#8678;</span></button>
               <h1>Tapahtumat</h1>
+              
+            <button id="nearestEventButton" onclick="findEvent('+')"><span>&#8680;</span></button>
             </header>
             <div class="calendar-container">
-
             <div class="calendar-padding" id="row_1">
               <div class="calendar-header" id="calendarHeader"></div>
             </div>
@@ -104,7 +107,7 @@ include "../static/server/connect.php";
 
                 <div class="days-container">
                   <div id="day1" class="day left" onclick="prevDay()"></div>
-                  <div id="day2" class="day middle" onclick="showEventInfo(getDayValue(0))"></div>
+                  <div id="day2" class="day middle" onclick="showEventInfo()"></div>
                   <div id="day3" class="day right" onclick="nextDay()"></div>
                 </div>
               </div>
@@ -115,7 +118,7 @@ include "../static/server/connect.php";
             </div>
 
             <a href="/tapahtumakalenteri" class="footer-link w3-button">
-              <h5></h5>
+              <h5><b>KAIKKI TAPAHTUMAT</b></h5>
             </a>
           </div>
         </div>

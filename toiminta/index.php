@@ -80,32 +80,35 @@ include "../static/server/connect.php";
         <div id="tapahtumakalenteri" class="w3-display-container w3-right w3-content w3-padding-48 w3-hide-small w3-hide-medium">
           <div class="w3-card-4" style="max-width: 100%; text-align:center; overflow: hidden;">
 
-            <header class="w3-container">
-              <h1>Tapahtumat</h1>
-            </header>
-
-            <div class="calendar-container">
-
+          <header class="header w3-container">
+              
+              <button id="nearestEventButton" onclick="findEvent('-')"><span><</span></button>
+                <h1>Tapahtumat</h1>
+                
+              <button id="nearestEventButton" onclick="findEvent('+')"><span>></span></button>
+              </header>
+              <div class="calendar-container">
               <div class="calendar-padding" id="row_1">
-                <div class="calendar-header w3-bar-item" id="calendarHeader"></div>
+                <div class="calendar-header" id="calendarHeader"></div>
               </div>
-
-              <div class="calendar-padding" id="row_2">
-                <div class="days-container">
-                  <div id="day1" class="day left" onclick="prevDay()"></div>
-                  <div id="day2" class="day middle" onclick="showEventInfo(getDayValue(0))"></div>
-                  <div id="day3" class="day right" onclick="nextDay()"></div>
+  
+                <div class="calendar-padding" id="row_2">
+  
+                  <div class="days-container">
+                    <div id="day1" class="day left" onclick="prevDay()"></div>
+                    <div id="day2" class="day middle" onclick="showEventInfo()"></div>
+                    <div id="day3" class="day right" onclick="nextDay()"></div>
+                  </div>
+                </div>
+  
+                <div class="calendar-overlay" id="overlay">
+                  <div id="eventInfo"></div>
                 </div>
               </div>
-
-              <div class="calendar-overlay" id="overlay">
-                <div id="eventInfo"></div>
-              </div>
-            </div>
-
-            <a href="/tapahtumakalenteri" class="footer-link w3-button">
-              <h5></h5>
-            </a>
+  
+              <a href="/tapahtumakalenteri" class="footer-link w3-button">
+                <h5><b>KAIKKI TAPAHTUMAT</b></h5>
+              </a>
           </div>
         </div>
 
