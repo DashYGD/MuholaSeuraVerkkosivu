@@ -14,4 +14,3 @@ if ($username == "siellalepaa@gmail.com" AND $password == "koira123") {
     // jos salasana tai käyttäjänimi on väärin
     header('Location: login'); //palautetaan käyttäjä etusivulle
 }
-?>

@@ -16,4 +16,10 @@ document.addEventListener('DOMContentLoaded', function () {
         document.cookie = 'scrollPosition=' + window.scrollY;
     });
 
+    var form4 = document.getElementById('searchForm');
+
+    form4.addEventListener('submit', function () {
+        document.cookie = 'scrollPosition=' + window.scrollY;
+    });
+
 });

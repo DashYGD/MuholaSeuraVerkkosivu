@@ -9,7 +9,7 @@ include "../static/server/connect.php";
   <meta charset="UTF-8">
   <title>Muhola Seuran Kotisivut</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="../static\images\favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/W3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
@@ -67,13 +67,6 @@ include "../static/server/connect.php";
 
         <!-- About -->
         <div id="tietoa" class="w3-display-container w3-left w3-content w3-padding-16" style="max-width:55%; padding-left:5%; padding-bottom:5% !important;">
-          <?php
-          $sql = "SELECT otsikko FROM etusivu";
-          $result = $conn->query($sql);
-          while ($row = $result->fetch_assoc()) {
-            echo "" . $row["otsikko"];
-          }
-          ?>
           <p>
             <?php
             $sql = "SELECT tietoa FROM etusivu";
