@@ -1,25 +1,22 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Set the scroll position on page load
-    var scrollPositionCookie = document.cookie.replace(/(?:(?:^|.*;\s*)scrollPosition\s*=\s*([^;]*).*$)|^.*$/, '$1');
-    var scrollPosition = parseInt(scrollPositionCookie) || 0;
-    window.scrollTo(0, scrollPosition);
+document.addEventListener('DOMContentLoaded', function() {
+    function storeScrollPosition() {
+        localStorage.setItem('scrollPosition', window.scrollY);
+    }
 
-    var form1 = document.getElementById('form_1');
+    var form_1 = document.getElementById('form_1');
+    form_1.addEventListener('submit', storeScrollPosition);
 
-    form1.addEventListener('submit', function () {
-        document.cookie = 'scrollPosition=' + window.scrollY;
+    var form_2 = document.getElementById('form_2');
+    form_2.addEventListener('submit', storeScrollPosition);
+
+    var scrollPosition = localStorage.getItem('scrollPosition') || 0;
+    window.scrollTo(0, parseInt(scrollPosition));
+
+    document.getElementById('searchForm_1').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            // Prevent default form submission on Enter key
+            event.preventDefault();
+            storeScrollPosition();
+        }
     });
-
-    var form2 = document.getElementById('form_2');
-
-    form2.addEventListener('submit', function () {
-        document.cookie = 'scrollPosition=' + window.scrollY;
-    });
-
-    var form4 = document.getElementById('searchForm');
-
-    form4.addEventListener('submit', function () {
-        document.cookie = 'scrollPosition=' + window.scrollY;
-    });
-
 });

@@ -8,11 +8,7 @@ if (isset($_SESSION['muhola_admin'])) {
 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateEvent'])) {
-        if (isset($_POST['scrollPosition'])) {
-            $_SESSION['scrollPosition'] = $_POST['scrollPosition'];
-        }
 
-        setcookie('scrollPosition', $_SESSION['scrollPosition'], time() + 3600, '/');
         $eventId = $_POST['eventId'];
         $newDate = $_POST['newDate'];
         $newTitle = $_POST['newTitle'];
@@ -45,17 +41,18 @@ if (isset($_SESSION['muhola_admin'])) {
     }
     
     if (isset($_POST['submitButton'])) {
-        $searchInput = $_POST['searchInput_2'];
+
+        $searchInput = $_POST['submitButton'];
     
-        $selectSql = "SELECT * FROM tapahtumakalenteri WHERE otsikko LIKE ?";
+        $selectSql = "SELECT * FROM tapahtumakalenteri WHERE id = ?";
         $selectStmt = mysqli_prepare($conn, $selectSql);
     
         if ($selectStmt === false) {
             die('Error in preparing the SQL statement: ' . mysqli_error($conn));
         }
     
-        $searchInput = '%' . $searchInput . '%';
-        mysqli_stmt_bind_param($selectStmt, "s", $searchInput);
+        $searchInput = (int)$searchInput;
+        mysqli_stmt_bind_param($selectStmt, "i", $searchInput);
     
         $result = mysqli_stmt_execute($selectStmt);
     
@@ -64,8 +61,17 @@ if (isset($_SESSION['muhola_admin'])) {
         }
     
         $events = mysqli_stmt_get_result($selectStmt);
+
+        echo "<script>console.log(" . json_encode($events) . ");</script>";
+
+
+        if ($events === false) {
+            die('Error in getting result set: ' . mysqli_stmt_error($selectStmt));
+        }
     
         mysqli_stmt_close($selectStmt);
+        
+
     }
 
 
@@ -74,11 +80,6 @@ if (isset($_SESSION['muhola_admin'])) {
 
 
     if (isset($_POST['submit_1'])) {
-        if (isset($_POST['scrollPosition'])) {
-            $_SESSION['scrollPosition'] = $_POST['scrollPosition'];
-        }
-
-        setcookie('scrollPosition', $_SESSION['scrollPosition'], time() + 3600, '/');
         $tietoameista = $_POST['tietoameista_1'];
 
         $sql1 = "UPDATE etusivu SET tietoa = '$tietoameista'";
@@ -93,11 +94,6 @@ if (isset($_SESSION['muhola_admin'])) {
     }
 
     if (isset($_POST['submit_2'])) {
-        if (isset($_POST['scrollPosition'])) {
-            $_SESSION['scrollPosition'] = $_POST['scrollPosition'];
-        }
-
-        setcookie('scrollPosition', $_SESSION['scrollPosition'], time() + 3600, '/');
 
         $tietoatoiminta = $_POST['tietoatoiminta_1'];
 
@@ -153,8 +149,6 @@ if (isset($_SESSION['muhola_admin'])) {
     echo '</div></p>
     <input type="hidden" name="tietoameista_1" id="tietoameista-input_1">
 
-    <input type="hidden" name="scrollPosition" id="scrollPosition" value="<?php echo $scrollPosition; ?>">
-
     <input type="submit" name="submit_1" value="Muokkaa" onclick="updateHiddenInputs_1()">
     </form><br>
     </div>';
@@ -195,13 +189,6 @@ if (isset($_SESSION['muhola_admin'])) {
     }
 
     echo '</div></p>';
-    
-    $scrollPosition = isset($_SESSION['scrollPosition']) ? (int)$_SESSION['scrollPosition'] : 0;
-
-    echo '<input type="hidden" name="scrollPosition" id="scrollPosition" value="' . $scrollPosition . '">';
-
-    unset($_SESSION['scrollPosition']);
-
     echo'
     <input type="hidden" name="tietoatoiminta_1" id="tietoatoiminta-input_1">
     
@@ -236,22 +223,26 @@ if (isset($_SESSION['muhola_admin'])) {
 
 
 
-  <form method="POST" class="w3-container" id="searchForm">
+  <form method="POST" class="w3-container" id="searchForm_1">
   <p>
   <input
     type="text"
     id="searchInput_2"
+    oninput="searchEvents(event)"
     name="searchInput_2"
     placeholder="Search events"
   />
-  <button type="submit" id="submitButton" name="submitButton">Select</button>
-  </p>
+  <input type="hidden" id="submitButton" name="submitButton">
+  </p><p>
+  <div id="searchResultsContainer"></div></p>
+  
+  </form>
 
-<div id="searchResults">';
+<div id="searchResults" class="w3-container">';
         if (isset($events)) {
             while ($row = mysqli_fetch_assoc($events)) {
                 echo '<div><p>';
-                echo '<form method="POST">';
+                echo '<form method="POST" id="form__' . $row['id'] . '">';
                 echo '<input type="hidden" name="eventId" value="' . $row['id'] . '">';
                 echo '<label>Date:</label>';
                 echo '<input type="text" name="newDate" value="' . $row['päivä'] . '"><br>';
@@ -260,7 +251,8 @@ if (isset($_SESSION['muhola_admin'])) {
                 echo '<br><label>Description:</label><br>';
                 echo '<div id="editor__' . $row['id'] . '" style="max-height: 150px;">' . $row['tietoa'] . ' </div>';
                 echo '<p><input type="submit" name="updateEvent" onclick="updateHiddenInput__' . $row["id"] . '(); " value="Update"></p>';
-                echo '<input type="hidden" name="newDescription__' . $row["id"] . '" id="newDescription__' . $row["id"] . '">';
+                echo '<input type="hidden" name="newDescription__' . $row["id"] . '" id="newDescription__' . $row["id"] . '">
+                </form>';
                 
                 echo '<script>var quill__' . $row['id'] . ' = new Quill("#editor__' . $row['id'] . '", { theme: "snow", name: "newDescription__' . $row["id"] . '" });
                 
@@ -274,17 +266,9 @@ if (isset($_SESSION['muhola_admin'])) {
                             document.getElementById("newDescription__' . $row["id"] . '").value = quillContent;
                         }
                     </script>';
-
-                $scrollPosition = isset($_SESSION['scrollPosition']) ? (int)$_SESSION['scrollPosition'] : 0;
-
-                echo '<input type="hidden" name="scrollPosition" id="scrollPosition" value="' . $scrollPosition . '">';
-                unset($_SESSION['scrollPosition']);
-                echo '</form>';
-                echo '</p></div>';
             }
         } echo '
     </div>
-</form>
 
     <br>
     </div> ';
@@ -320,14 +304,75 @@ if (isset($_SESSION['muhola_admin'])) {
 
 echo <<<EOL
 <script>
-var form=document.getElementById("searchForm");
+var form=document.getElementById("searchForm_1");
 
 
-document.getElementById('searchForm').addEventListener('keydown', function (event) {
-if (event.key === 'Enter') {
-event.preventDefault(); // Prevent the default form submission
-}
-});
+
+function selectEvent(selectedOption) {
+    var selectedEventId = selectedOption.getAttribute('data-event-id');
+    var selectedEventValue = selectedOption.getAttribute('name');
+    var form = document.getElementById('searchForm_1');
+
+    // Add logic to handle the selected event (e.g., redirect to event details page)
+    console.log('Selected Event ID:', selectedEventId);
+
+    // Reset the search input and hide the dropdown
+    console.log(selectedEventValue);
+    document.getElementById('searchInput_2').value = selectedEventValue;
+
+    // Trigger the form submission with the selected event ID
+    document.getElementById('submitButton').value = selectedEventId;
+    console.log(document.getElementById('submitButton').value);
+    form.submit();
+
+  }
+
+
+function updateSearchResults(results) {
+    var searchResultsContainer = document.getElementById('searchResultsContainer');
+    searchResultsContainer.innerHTML = '';
+
+    for (var i = 0; i < results.length; i++) {
+      var resultItem = document.createElement('div');
+      // Create a clickable container for each result
+      resultItem.innerHTML = '<div onclick="selectEvent(this)" name="' + results[i].otsikko + '" data-event-id="' + results[i].id + '">' + results[i].otsikko + '</div>';
+
+      searchResultsContainer.appendChild(resultItem);
+    }
+  }
+
+function searchEvents(event) {
+    // Check if the event object is defined and if the key pressed is Enter
+    if (event && event.key === 'Enter') {
+      event.preventDefault(); // Prevent form submission on Enter
+      return false;
+    }
+  
+    var input = document.getElementById('searchInput_2').value;
+    var searchResultsContainer = document.getElementById('searchResultsContainer');
+    
+  
+    if (input.length >= 1) {
+      // Use AJAX to fetch search results from the server
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var results = JSON.parse(xhr.responseText);
+          updateSearchResults(results);
+        }
+      };
+  
+      xhr.open('GET', 'server/search_events.php?query=' + input, true);
+      xhr.send();
+      console.log(input);
+    } else {
+      // Clear search results if the input is less than 2 characters
+      searchResultsContainer.innerHTML = '';
+    }
+  
+    // Allow form submission for other keys
+    return true;
+  }
 </script>
 EOL;
 
