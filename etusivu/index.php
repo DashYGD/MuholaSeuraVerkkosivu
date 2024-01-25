@@ -81,6 +81,8 @@ include "../static/server/connect.php";
           </div>
         </div>
 
+        
+
         <div id="tapahtumakalenteri" class="w3-display-container w3-right w3-content w3-padding-48 w3-hide-small w3-hide-medium">
           <div class="w3-card-4 kalenteri">
 
@@ -141,6 +143,20 @@ include "../static/server/connect.php";
             </a>
           </div>
         </div>
+
+
+        <!-- Tiedotteet -->
+        <div class="w3-display-container w3-left w3-content" style="margin-left: 2.5%; margin-bottom: 5%; ">
+          <h1><b>Tiedotteet</b></h1>
+          <div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%;">
+          <h2>Tiedotteen otsikko</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum vestibulum eros vitae laoreet.
+             Vivamus porttitor augue a ornare lacinia. Aliquam erat volutpat. In sodales nunc eu nunc consectetur aliquet.
+              Etiam lorem erat, posuere eu suscipit ac, blandit vel nisi.
+             Vivamus sit amet magna eget metus blandit ornare in a nunc.</p>
+            </div>
+            </div>
+
 
         <div id="bottombar" class="bottombar">
           <span>@Copyright 2024</span>
