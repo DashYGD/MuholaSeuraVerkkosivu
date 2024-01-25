@@ -119,16 +119,20 @@ if (isset($_SESSION['muhola_admin'])) {
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-beta.0/dist/quill.snow.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-beta.0/dist/quill.js"></script>
+    <link rel="stylesheet" href="../static/styles/core.css">
+
 
     <link rel="stylesheet" href="styles/styles.css">
     <body id="base" style="opacity:0;">';
 
-    echo '<div class="w3-container">
+    echo '<div class="w3-container" ">
+    <div class="w3-container w3-green">
     <h2>Muokkaa verkkosivun sisältöä</h2>
+    </div>
     ';
 
     echo '
-    <div class="w3-card-4"  style="border-style: outset;">
+    <div class="w3-card-4"  style="border-style: outset; background-color:white;">
     <div class="w3-container w3-green">
     <h2>Etusivu</h2>
     </div>
@@ -172,7 +176,7 @@ if (isset($_SESSION['muhola_admin'])) {
     echo '<br><br><br>';
 
     echo '
-    <div class="w3-card-4"  style="border-style: outset;">
+    <div class="w3-card-4"  style="border-style: outset; background-color:white;">
     <div class="w3-container w3-green">
     <h2>Tietoa toiminnasta</h2>
     </div>
@@ -223,7 +227,7 @@ if (isset($_SESSION['muhola_admin'])) {
     echo '<br><br><br>';
 
     echo '
-    <div class="w3-card-4" style="border-style: outset;">
+    <div class="w3-card-4" style="border-style: outset; background-color:white;">
   <div class="w3-container w3-green">
     <h2>Tapahtumakalenteri</h2>
   </div>
@@ -282,17 +286,14 @@ if (isset($_SESSION['muhola_admin'])) {
     </div>
 </form>
 
-
-
-
     <br>
-    </div></div> </div>';
+    </div> ';
 
     echo '<br><br><br>';
 
 
     echo '
-    <div class="w3-card-4">
+    <div class="w3-card-4" style="border-style: outset; background-color:white; margin-bottom: 40px;">
     <div class="w3-container w3-blue">
     <h2>Kuvagalleria</h2>
     </div>
@@ -305,7 +306,7 @@ if (isset($_SESSION['muhola_admin'])) {
     </form>
     <br>
     </div>
-    </div>
+    </div></div></div>
 
     
     <script type="text/javascript" src="../static/scripts/animation.js"></script>
@@ -337,17 +338,6 @@ EOL;
     header('Location: login');
     exit();
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
