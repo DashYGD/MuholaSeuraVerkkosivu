@@ -5,109 +5,8 @@ session_start();
 include "../static/server/connect.php";
 
 if (isset($_SESSION['muhola_admin'])) {
-
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateEvent'])) {
-
-        $eventId = $_POST['eventId'];
-        $newDate = $_POST['newDate'];
-        $newTitle = $_POST['newTitle'];
-        $newDescription = $_POST['newDescription__' . $eventId];
+    include "server/eventHandler.php";
     
-        $sql = "UPDATE tapahtumakalenteri SET päivä = ?, otsikko = ?, tietoa = ? WHERE id = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-    
-        if ($stmt === false) {
-            die('Error in preparing the SQL statement: ' . mysqli_error($conn));
-        }
-    
-        mysqli_stmt_bind_param($stmt, "sssi", $newDate, $newTitle, $newDescription, $eventId);
-        
-        $result = mysqli_stmt_execute($stmt);
-    
-        if ($result === false) {
-            die('Error in executing the SQL statement: ' . mysqli_stmt_error($stmt));
-        }
-    
-        $affected_rows = mysqli_stmt_affected_rows($stmt);
-    
-        if ($affected_rows > 0) {
-            echo "Update successful";
-        } else {
-            echo "No rows updated";
-        }
-    
-        mysqli_stmt_close($stmt);
-    }
-    
-    if (isset($_POST['submitButton'])) {
-
-        $searchInput = $_POST['submitButton'];
-    
-        $selectSql = "SELECT * FROM tapahtumakalenteri WHERE id = ?";
-        $selectStmt = mysqli_prepare($conn, $selectSql);
-    
-        if ($selectStmt === false) {
-            die('Error in preparing the SQL statement: ' . mysqli_error($conn));
-        }
-    
-        $searchInput = (int)$searchInput;
-        mysqli_stmt_bind_param($selectStmt, "i", $searchInput);
-    
-        $result = mysqli_stmt_execute($selectStmt);
-    
-        if ($result === false) {
-            die('Error in executing the SQL statement: ' . mysqli_stmt_error($selectStmt));
-        }
-    
-        $events = mysqli_stmt_get_result($selectStmt);
-
-        echo "<script>console.log(" . json_encode($events) . ");</script>";
-
-
-        if ($events === false) {
-            die('Error in getting result set: ' . mysqli_stmt_error($selectStmt));
-        }
-    
-        mysqli_stmt_close($selectStmt);
-        
-
-    }
-
-
-
-
-
-
-    if (isset($_POST['submit_1'])) {
-        $tietoameista = $_POST['tietoameista_1'];
-
-        $sql1 = "UPDATE etusivu SET tietoa = '$tietoameista'";
-        $result1 = mysqli_query($conn, $sql1);
-
-        $updateSuccess = ($result1);
-
-        if ($updateSuccess) {
-            header('Location: admin');
-            exit();
-        }
-    }
-
-    if (isset($_POST['submit_2'])) {
-
-        $tietoatoiminta = $_POST['tietoatoiminta_1'];
-
-        $sql2 = "UPDATE toiminta SET tietoa_1 = '$tietoatoiminta'";
-        $result2 = mysqli_query($conn, $sql2);
-
-        $updateSuccess = ($result2);
-
-        if ($updateSuccess) {
-            header('Location: admin');
-            exit();
-        }
-    }
-
     echo '<!DOCTYPE html>
     <html>
     <title>Admin page</title>
@@ -128,7 +27,7 @@ if (isset($_SESSION['muhola_admin'])) {
     ';
 
     echo '
-    <div class="w3-card-4"  style="border-style: outset; background-color:white;">
+    <div class="w3-card-4" id="etusivu_1" style="border-style: outset; background-color:white;">
     <div class="w3-container w3-green">
     <h2>Etusivu</h2>
     </div>
@@ -170,7 +69,7 @@ if (isset($_SESSION['muhola_admin'])) {
     echo '<br><br><br>';
 
     echo '
-    <div class="w3-card-4"  style="border-style: outset; background-color:white;">
+    <div class="w3-card-4" id="toiminta" style="border-style: outset; background-color:white;">
     <div class="w3-container w3-green">
     <h2>Tietoa toiminnasta</h2>
     </div>
@@ -214,7 +113,7 @@ if (isset($_SESSION['muhola_admin'])) {
     echo '<br><br><br>';
 
     echo '
-    <div class="w3-card-4" style="border-style: outset; background-color:white;">
+    <div class="w3-card-4" style="border-style: outset; background-color:white;" id="eventCalendar">
   <div class="w3-container w3-green">
     <h2>Tapahtumakalenteri</h2>
   </div>
@@ -223,55 +122,94 @@ if (isset($_SESSION['muhola_admin'])) {
 
 
 
-  <form method="POST" class="w3-container" id="searchForm_1">
-  <p>
+  <form method="POST" class="w3-container" id="searchForm_1" style="display:flex; position: relative; flex-direction: column; max-width: 100%; margin: 2%; justify-content: center; align-items: center;">
   <input
     type="text"
     id="searchInput_2"
     oninput="searchEvents(event)"
     name="searchInput_2"
-    placeholder="Search events"
+    placeholder="Hae tapahtumia"
+    style="display:flex; position: relative; width: 100%;"
   />
   <input type="hidden" id="submitButton" name="submitButton">
-  </p><p>
-  <div id="searchResultsContainer"></div></p>
-  
+  <div style="display:flex; position: relative; flex-direction: column; width: 100%; align-items: center;">
+  <div class="w3-bar-block w3-white w3-card" style="display:flex; position: absolute; flex-direction: column; align-item: center; justify-content:center; z-index:5; margin-left: 2%; margin-right: 2%; width:100%;" id="searchResultsContainer"></div>
+  </div>
   </form>
 
 <div id="searchResults" class="w3-container">';
-        if (isset($events)) {
-            while ($row = mysqli_fetch_assoc($events)) {
-                echo '<div><p>';
-                echo '<form method="POST" id="form__' . $row['id'] . '">';
-                echo '<input type="hidden" name="eventId" value="' . $row['id'] . '">';
-                echo '<label>Date:</label>';
-                echo '<input type="text" name="newDate" value="' . $row['päivä'] . '"><br>';
-                echo '<label>Title:</label>';
-                echo '<input type="text" name="newTitle" value="' . $row['otsikko'] . '"><br>';
-                echo '<br><label>Description:</label><br>';
-                echo '<div id="editor__' . $row['id'] . '" style="max-height: 150px;">' . $row['tietoa'] . ' </div>';
-                echo '<p><input type="submit" name="updateEvent" onclick="updateHiddenInput__' . $row["id"] . '(); " value="Update"></p>';
-                echo '<input type="hidden" name="newDescription__' . $row["id"] . '" id="newDescription__' . $row["id"] . '">
-                </form>';
+if (isset($events) && !isset($_POST['clearEventForm'])) {
+    while ($row = mysqli_fetch_assoc($events)) {
+        echo '<div><p>';
+        echo '<form method="POST" class="w3-container" id="form__' . $row['id'] . '">';
+        echo '<input type="hidden" name="eventId" value="' . $row['id'] . '">';
+        echo '<p><label>Päivämäärä:</label>';
+        echo '<input type="date" name="newDate" value="' . $row['päivä'] . '"></p>';
+        echo '<p><label>Otsikko:</label>';
+        echo '<input type="text" name="newTitle" value="' . $row['otsikko'] . '"></p>';
+        echo '<br><label>Tietoa tapahtumasta:</label><br>';
+        echo '<div id="editor__' . $row['id'] . '" style="max-height: 150px;">' . $row['tietoa'] . ' </div>';
+        echo '<p><input type="submit" name="updateEvent" onclick="updateHiddenInput__' . $row["id"] . '(); " value="Päivitä">';
+        echo '<input type="hidden" name="newDescription__' . $row["id"] . '" id="newDescription__' . $row["id"] . '">
+        <form method="POST" class="w3-container" id="clearEventForm">
+        <input type="submit" name="clearEvents" id="clearEvents" value="Lisää uusi">
+        </form></p></form></div>';
                 
-                echo '<script>var quill__' . $row['id'] . ' = new Quill("#editor__' . $row['id'] . '", { theme: "snow", name: "newDescription__' . $row["id"] . '" });
-                
-                        console.log(document.getElementById("newDescription__' . $row["id"] . '").value);
-                        function updateHiddenInput__' . $row["id"] . '() {
-                            var quillContent = quill__' . $row['id'] . '.root.innerHTML;
-                            console.log(quillContent);
-                            console.log(' . $row["id"] . ');
+        echo '<script>var quill__' . $row['id'] . ' = new Quill("#editor__' . $row['id'] . '", { theme: "snow", name: "newDescription__' . $row["id"] . '" });
+            
+                console.log(document.getElementById("newDescription__' . $row["id"] . '").value);
+                function updateHiddenInput__' . $row["id"] . '() {
+                    var quillContent = quill__' . $row['id'] . '.root.innerHTML;
+                    console.log(quillContent);
                             
 
-                            document.getElementById("newDescription__' . $row["id"] . '").value = quillContent;
-                        }
-                    </script>';
+                    document.getElementById("newDescription__' . $row["id"] . '").value = quillContent;
+                }
+            </script>';
+    }
+} 
+if (!isset($events) || isset($_POST['clearEventForm'])){
+    echo '<div>';
+    echo '<form method="POST" class="w3-container" id="newEventForm">';
+    echo '<p><label>Päivämäärä:</label>';
+    echo '<input type="date" name="newDate" required></p>';
+    echo '<p><label>Otsikko:</label>';
+    echo '<input type="text" name="newTitle" required></p>';
+    echo '<br><label>Tietoa tapahtumasta:</label><br>';
+    echo '<div id="editor_newEvent" style="max-height:200px;"></div>';
+    echo '<p><input type="submit" name="addEvent" onclick="updateHiddenInput_5();" value="Lisää"></p>';
+    echo '<input type="hidden" name="newDescription_1" id="newDescription_1">';
+    echo '</form></div>';
+
+    echo '<script>
+        var quill_new_1;
+
+        function initQuill() {
+            if (!quill_new_1) {
+                quill_new_1 = new Quill("#editor_newEvent", { theme: "snow" });
             }
-        } echo '
-    </div>
+        }
+
+        function updateHiddenInput_5() {
+            if (quill_new_1) {
+                var quillContent = quill_new_1.root.innerHTML;
+                console.log(quillContent);
+                document.getElementById("newDescription_1").value = quillContent;
+            }
+        }
+
+        // Call the initQuill function when the document is ready
+        document.addEventListener("DOMContentLoaded", function() {
+            initQuill();
+        });
+          
+    </script>';
+}
+
+         echo '
 
     <br>
-    </div> ';
+    </div></div> ';
 
     echo '<br><br><br>';
 
@@ -294,7 +232,6 @@ if (isset($_SESSION['muhola_admin'])) {
 
     
     <script type="text/javascript" src="../static/scripts/animation.js"></script>
-    <script type="text/javascript" src="scripts/scrollposition.js"></script> 
     <script type="text/javascript" src="scripts/quill.js"></script>';
     
 
@@ -307,25 +244,38 @@ echo <<<EOL
 var form=document.getElementById("searchForm_1");
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('Stored Event ID:', storedEventId);
+
+    // Set the value of submitButton based on storedEventId
+    var submitButtonInput = document.getElementById('submitButton');
+        var storedEventId = localStorage.getItem("selectedEventId");
+        console.log('Stored Event ID:', storedEventId, submitButtonInput.value);
+
+        submitButtonInput.value = storedEventId;
+
+});
+
+
 
 function selectEvent(selectedOption) {
     var selectedEventId = selectedOption.getAttribute('data-event-id');
     var selectedEventValue = selectedOption.getAttribute('name');
     var form = document.getElementById('searchForm_1');
 
-    // Add logic to handle the selected event (e.g., redirect to event details page)
     console.log('Selected Event ID:', selectedEventId);
-
-    // Reset the search input and hide the dropdown
     console.log(selectedEventValue);
+
     document.getElementById('searchInput_2').value = selectedEventValue;
-
-    // Trigger the form submission with the selected event ID
+    localStorage.setItem('selectedEventId', selectedEventId);
     document.getElementById('submitButton').value = selectedEventId;
-    console.log(document.getElementById('submitButton').value);
-    form.submit();
 
-  }
+    localStorage.setItem('containerId', document.getElementById("eventCalendar").getAttribute('id'));
+
+    // Manually trigger the form submission
+    form.submit();
+}
+
 
 
 function updateSearchResults(results) {
@@ -334,26 +284,28 @@ function updateSearchResults(results) {
 
     for (var i = 0; i < results.length; i++) {
       var resultItem = document.createElement('div');
-      // Create a clickable container for each result
-      resultItem.innerHTML = '<div onclick="selectEvent(this)" name="' + results[i].otsikko + '" data-event-id="' + results[i].id + '">' + results[i].otsikko + '</div>';
+      resultItem.innerHTML = '<div style=" text-align: center; " class="scrollpos w3-bar-item w3-button" onclick="selectEvent(this)" name="' + results[i].otsikko + '" data-event-id="' + results[i].id + '">' + results[i].otsikko + '</div>';
 
       searchResultsContainer.appendChild(resultItem);
     }
+
+    var elements = document.getElementsByClassName('scrollpos');
+
+for (var i = 0; i < elements.length; i++) {
+    elements[i].addEventListener('click', function() {
+        console.log(elements[i]);
+        localStorage.setItem('scrollPosition', window.scrollY);
+    });
+}
   }
 
 function searchEvents(event) {
-    // Check if the event object is defined and if the key pressed is Enter
-    if (event && event.key === 'Enter') {
-      event.preventDefault(); // Prevent form submission on Enter
-      return false;
-    }
   
     var input = document.getElementById('searchInput_2').value;
     var searchResultsContainer = document.getElementById('searchResultsContainer');
     
   
     if (input.length >= 1) {
-      // Use AJAX to fetch search results from the server
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -366,14 +318,13 @@ function searchEvents(event) {
       xhr.send();
       console.log(input);
     } else {
-      // Clear search results if the input is less than 2 characters
       searchResultsContainer.innerHTML = '';
     }
-  
-    // Allow form submission for other keys
     return true;
   }
 </script>
+
+<script type="text/javascript" src="scripts/scrollposition.js"></script> 
 EOL;
 
 
