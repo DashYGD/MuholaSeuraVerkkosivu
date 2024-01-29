@@ -146,17 +146,28 @@ include "../static/server/connect.php";
 
 
         <!-- Tiedotteet -->
-        <div class="w3-display-container w3-left w3-content" style="margin-left: 2.5%; margin-bottom: 5%; ">
+        
+        <div class="w3-display-container w3-left w3-content" style="margin-left: 2.5%; margin-bottom: 5%;">
           <h1><b>Tiedotteet</b></h1>
-          <div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%;">
-          <h2>Tiedotteen otsikko</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum vestibulum eros vitae laoreet.
-             Vivamus porttitor augue a ornare lacinia. Aliquam erat volutpat. In sodales nunc eu nunc consectetur aliquet.
-              Etiam lorem erat, posuere eu suscipit ac, blandit vel nisi.
-             Vivamus sit amet magna eget metus blandit ornare in a nunc.</p>
-            </div>
-            </div>
 
+          <?php
+          $sql2 = "SELECT * FROM tiedotteet ORDER BY tärkeys DESC";
+          $result = $conn->query($sql2);
+          while ($row = $result->fetch_assoc()) {
+          echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; max-height: 270px; overflow: scroll; text-overflow: ellipsis;">';
+          echo '<p style="font-size: 12px; color: grey;">' . $row['pvm'] .'</p>';
+
+          if ($row['tärkeys'] == 2)
+          {echo '<h4 class="w3-right" style="color: red;">TÄRKEÄ!</h4>'; }
+           else
+            { }
+
+          echo '<h2>' . $row['otsikko'] . '</h2>';
+          echo '<p>' . $row['teksti'] .'</p>
+            </div>';
+          }
+          ?>
+        </div>
 
         <div id="bottombar" class="bottombar">
           <span>@Copyright 2024</span>
