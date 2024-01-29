@@ -198,7 +198,6 @@ if (!isset($events) || isset($_POST['clearEventForm'])){
             }
         }
 
-        // Call the initQuill function when the document is ready
         document.addEventListener("DOMContentLoaded", function() {
             initQuill();
         });
@@ -272,7 +271,6 @@ function selectEvent(selectedOption) {
 
     localStorage.setItem('containerId', document.getElementById("eventCalendar").getAttribute('id'));
 
-    // Manually trigger the form submission
     form.submit();
 }
 

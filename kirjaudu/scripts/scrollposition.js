@@ -1,22 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to store the container ID in localStorage
     function storeContainerId(containerId) {
         localStorage.setItem('containerId', containerId);
     }
 
-    // Function to retrieve the container ID from localStorage and scroll to its position
     function scrollToContainer() {
         var containerId = localStorage.getItem('containerId');
         if (containerId) {
             var container = document.getElementById(containerId);
             if (container) {
                 var containerPosition = container.offsetTop;
-                window.scrollTo(0, containerPosition-10);
+                window.scrollTo(0, containerPosition-5);
             }
         }
     }
 
-    // Store the ID of the clicked container when a container is clicked
     var containerId_1 = document.getElementById("eventCalendar").getAttribute('id');
     var containerId_2 = document.getElementById("etusivu_1").getAttribute('id');
     var containerId_3 = document.getElementById("toiminta").getAttribute('id');
@@ -49,12 +46,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Scroll to the stored container position on page load
     scrollToContainer();
 
     document.getElementById('searchInput_2').addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent form submission on Enter
+            event.preventDefault();
         }
     });
 });
