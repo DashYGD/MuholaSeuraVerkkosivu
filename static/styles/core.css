@@ -1,21 +1,42 @@
 body {
-background-image: url("../../static/images/laajalahti5.jpg");
-background-size: cover;
-background-repeat: no-repeat;
-background-attachment: fixed;
-overflow: hidden;
+    background-image: url("../../static/images/laajalahti5.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Removed overflow: hidden; */
 }
+
+/* Combined .navbar styles into a single declaration */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    border-top-style: outset; /* Added border-top-style */
+    border-bottom-style: outset; /* Added border-bottom-style */
+}
+
+/* Removed duplicate declaration for .navbar */
+.sidebar {
+    display: none;
+    z-index: 5;
+    max-width: 60%;
+    position: absolute;
+    right: 0;
+}
+
+/* Other CSS rules remain unchanged */
+
 
 .fc-toolbar { text-transform: capitalize; }
 
 .fc-col-header-cell-cushion {
     text-transform: capitalize;
-}
-
-
-.navbar {
-border-top-style: outset;
-border-bottom-style: outset;
 }
 
 #layer_1 {
@@ -55,22 +76,6 @@ position: -webkit-sticky; /* Safari */
 position: sticky;
 top: 0;
 z-index: 1000;
-}
-
-.navbar {
-display: flex;
-justify-content: space-between;
-align-items: center;
-width: 100%;
-list-style-type: none;
-margin: 0;
-padding: 0;
-overflow: hidden;
-background-color: #333;
-}
-
-.sidebar {
-display: none; z-index: 5; max-width: 60%; position: absolute; right: 0; border-top-style: outset; border-bottom-style: outset;
 }
 
 .bottombar {

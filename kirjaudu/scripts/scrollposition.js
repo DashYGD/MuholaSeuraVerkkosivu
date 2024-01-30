@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    var containerId_1 = document.getElementById("eventCalendar").getAttribute('id');
+    var containerId_1 = document.getElementById("tapahtumakalenteri_1").getAttribute('id');
     var containerId_2 = document.getElementById("etusivu_1").getAttribute('id');
-    var containerId_3 = document.getElementById("toiminta").getAttribute('id');
+    var containerId_3 = document.getElementById("toiminta_1").getAttribute('id');
 
     var clearEventsButton = document.getElementById("clearEvents");
     if (clearEventsButton) {

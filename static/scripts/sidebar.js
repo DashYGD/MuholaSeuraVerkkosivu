@@ -1,7 +1,9 @@
 const menubutton1 = document.querySelector('.menubutton1');
 const menubutton2 = document.querySelector('.menubutton');
 
-menubutton1.addEventListener('click', w3_open);
+if (menubutton1) {
+    menubutton1.addEventListener('click', w3_open);
+}
 
 var x = 0;
 
@@ -21,9 +23,11 @@ function w3_open() {
     }
 }
 
-menubutton1.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        w3_open();
-    }
-});
+if (menubutton1) {
+    menubutton1.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            w3_open();
+        }
+    });
+}
