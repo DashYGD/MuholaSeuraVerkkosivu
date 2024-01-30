@@ -1,7 +1,7 @@
-function toggleSections(sectionIds) {
-    var sections = document.querySelectorAll('.w3-card-4');
+function toggleSection(sectionId) {
+    var sections = document.querySelectorAll('.sections');
     sections.forEach(function(section) {
-        if (sectionIds.includes(section.id)) {
+        if (section.id === sectionId) {
             section.style.display = 'block';
         } else {
             section.style.display = 'none';

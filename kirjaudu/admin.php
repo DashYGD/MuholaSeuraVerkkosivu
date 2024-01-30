@@ -10,7 +10,6 @@ if (!isset($_SESSION['muhola_admin'])) {
 
 include "server/eventHandler.php";
 
-// HTML markup
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,8 +41,8 @@ include "server/eventHandler.php";
             </div>
 
             <div class="center-links">
-                <a class="active w3-hide-small" href="#" onclick="toggleSections(['etusivu_1', 'etusivu_2'])">Etusivu</a>
-                <a class="w3-hide-small" href="#" onclick="toggleSections(['toiminta_1', 'toiminta_2'])">Toiminta</a>
+                <a class="active w3-hide-small" href="#" onclick="toggleSection('etusivu_1')">Etusivu</a>
+                <a class="w3-hide-small" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
                 <a class="w3-hide-small" href="/kuvagalleria">Kuvagalleria</a>
             </div>
                 <div class="right-buttons">
@@ -54,8 +53,8 @@ include "server/eventHandler.php";
 
         <div class="mySidebar" id="sidebar">
             <div class="sidebar w3-white w3-card w3-bar-block w3-animate-opacity" id="mySidebar">
-            <a href="/etusivu" class="w3-bar-item w3-button">Etusivu</a>
-            <a href="/toiminta" class="w3-bar-item w3-button">Toiminta</a>
+            <a class="active w3-hide-small" href="#" onclick="toggleSection('etusivu_1')">Etusivu</a>
+            <a class="w3-hide-small" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
             <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
             <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
             </div>
@@ -65,55 +64,76 @@ include "server/eventHandler.php";
     <!-- Content sections -->
     <div class="w3-container">
         <!-- Section 1: Etusivu -->
-        <div class="w3-card-4 w3-white" id="etusivu_1">
-            <div class="w3-container w3-green">
-                <h2>Etusivu</h2>
-            </div>
-            <form method="POST" class="w3-container" id="form_1">
-                <h3>Tietoa meistä</h3>
-                <p><div id="editor_1" name="tietoameista_1">
+        <div class="sections" id="etusivu_1">
+            <div class="w3-card-4 w3-white">
+                <div class="w3-container w3-green">
+                    <h2>Etusivu</h2>
+                </div>
+                <form method="POST" class="w3-container" id="form_1">
+                    <h3>Tietoa meistä</h3>
+                    <p><div id="editor_1" name="tietoameista_1">
 
-                    <?php
-                    $sql1 = "SELECT tietoa FROM etusivu";
-                    $result= $conn->query($sql1);
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo $row["tietoa"];
+                        <?php
+                        $sql1 = "SELECT tietoa FROM etusivu";
+                        $result= $conn->query($sql1);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo $row["tietoa"];
+                            }
                         }
-                    }
-                    ?>
-                </div></p>
-                <!-- Inputs -->
-                <input type="hidden" name="tietoameista_1" id="tietoameista-input_1">
-                <input type="submit" name="submit_1" value="Muokkaa" onclick="updateHiddenInputs_1()">
-            </form><br>
-        </div>
-        <!-- Display content -->
-        <div class="w3-card-4 w3-container w3-white" id="etusivu_2">
-            <div class="w3-container">
-                <span>
-                    <?php
-                    $sql1 = "SELECT tietoa FROM etusivu";
-                    $result= $conn->query($sql1);
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo $row["tietoa"];
+                        ?>
+                    </div></p>
+                    <!-- Inputs -->
+                    <input type="hidden" name="tietoameista_1" id="tietoameista-input_1">
+                    <input type="submit" name="submit_1" value="Muokkaa" onclick="updateHiddenInputs_1()">
+                </form><br>
+            </div><br>
+            <!-- Display content -->
+            <div class="w3-card-4 w3-container w3-white">
+                <div class="w3-container">
+                    <span>
+                        <?php
+                        $sql1 = "SELECT tietoa FROM etusivu";
+                        $result= $conn->query($sql1);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo $row["tietoa"];
+                            }
                         }
-                    }
-                    ?>
-                </span>
+                        ?>
+                    </span>
+                </div>
             </div>
         </div>
 
         <!-- Section 2: Toiminta -->
-        <div class="w3-card-4 w3-white" id="toiminta_1" style="display:none;">
-            <div class="w3-container w3-green">
-                <h2>Tietoa toiminnasta</h2>
-            </div>
-            
-            <form method="POST" class="w3-container"  id="form_2">
-                <h3>Teksti</h3>
-                <p><div id="editor_2" name="tietoatoiminta_1">
+        <div class="sections" id="toiminta_1" style="display:none;">
+            <div class="w3-card-4 w3-white">
+                <div class="w3-container w3-green">
+                    <h2>Tietoa toiminnasta</h2>
+                </div>
+                
+                <form method="POST" class="w3-container"  id="form_2">
+                    <h3>Teksti</h3>
+                    <p><div id="editor_2" name="tietoatoiminta_1">
+                        <?php
+                        $sql2 = "SELECT tietoa_1 FROM toiminta";
+                        $result= $conn->query($sql2);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo $row["tietoa_1"];
+                            }
+                        }
+                        ?>
+                    </div></p>
+                    <!--- Inputs -->
+                    <input type="hidden" name="tietoatoiminta_1" id="tietoatoiminta-input_1">
+                    <input type="submit" name="submit_2" value="Muokkaa" onclick="updateHiddenInput_2()">
+                </form><br>
+            </div><br>
+            <!--- Display Content -->
+            <div class="w3-card-4 w3-container w3-white"><br>
+                <span>
                     <?php
                     $sql2 = "SELECT tietoa_1 FROM toiminta";
                     $result= $conn->query($sql2);
@@ -123,29 +143,12 @@ include "server/eventHandler.php";
                         }
                     }
                     ?>
-                </div></p>
-                <!--- Inputs -->
-                <input type="hidden" name="tietoatoiminta_1" id="tietoatoiminta-input_1">
-                <input type="submit" name="submit_2" value="Muokkaa" onclick="updateHiddenInput_2()">
-            </form><br>
-        </div><br>
-        <!--- Display Content -->
-        <div class="w3-card-4 w3-container w3-white" id="toiminta_2" style="display:none;"><br>
-            <span>
-                <?php
-                $sql2 = "SELECT tietoa_1 FROM toiminta";
-                $result= $conn->query($sql2);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo $row["tietoa_1"];
-                    }
-                }
-                ?>
-            </span>
+                </span>
+            </div>
         </div>
 
         <!-- Section 3: Tapahtumakalenteri -->
-        <div class="w3-card-4 w3-white" id="tapahtumakalenteri_1" style="display:none;">
+        <div class="sections w3-card-4 w3-white" id="tapahtumakalenteri_1" style="display:none;">
             <div class="w3-container w3-green" id="kalenteri">
                 <h2>Tapahtumakalenteri</h2>
             </div>
@@ -239,8 +242,6 @@ include "server/eventHandler.php";
 
         <!-- Section 4: Kuvagalleria -->
         <div class="w3-card-4" style="display:none;">
-            <br><br><br>
-            <!-- Similar structure as Section 1 -->
         </div>
     </div>
 
