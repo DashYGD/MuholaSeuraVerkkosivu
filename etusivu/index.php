@@ -26,7 +26,7 @@ include "../static/server/connect.php";
   <!-- Page Start -->
   <div id="home" class="bg w3-content" style="max-width:1564px; max-height:2100px;">
 
-    <div id="layer_1" class="w3-content w3-white" style="max-width:1150px; max-height:2100px;">
+    <div id="layer_1" class="w3-content w3-white" style="max-width:1150px; max-height:auto;">
 
       <!-- Image in Display Container -->
       <div class="w3-display-container w3-content" style="max-width:1150px;">
@@ -159,6 +159,14 @@ include "../static/server/connect.php";
 
           if ($row['tärkeys'] == 2)
           {echo '<h4 class="w3-right" style="color: red;">TÄRKEÄ!</h4>'; }
+
+          elseif($row['tärkeys'] == 3)
+          {echo '<p style="color: blue;">Vain jäsenille</p>'; }
+
+          elseif($row['tärkeys'] >= 4)
+          {echo '<p style="color: blue;">Vain jäsenille</p>';
+           echo '<h4 class="w3-right" style="color: red;">TÄRKEÄ!</h4>';}
+
            else
             { }
 
