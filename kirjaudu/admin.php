@@ -24,11 +24,27 @@ if (isset($_SESSION['muhola_admin'])) {
     <div class="w3-container w3-green">
     <h2>Muokkaa verkkosivun sisältöä</h2>
     </div>
+
+    <div id="sticky">
+        <div id="navbar" class="navbar">
+
+          <div class="center-links">
+            <a class="active w3-hide-small" href="#etusivu">Etusivu</a>
+            <a class="w3-hide-small" href="#toiminta">Toiminta</a>
+            <a class="w3-hide-small" href="#kalenteri">Tapahtumakalenteri</a>
+            <a class="w3-hide-small" href="#kuvagalleria">Kuvagalleria</a>
+            <a class="w3-hide-small" href="#">Tiedotteet</a>
+            <a class="w3-hide-small" href="#">Käyttäjät</a>
+          </div>
+        </div>
+
+        </div>
+      </div>
     ';
 
     echo '
     <div class="w3-card-4" id="etusivu_1" style="border-style: outset; background-color:white;">
-    <div class="w3-container w3-green">
+    <div class="w3-container w3-green" id="etusivu">
     <h2>Etusivu</h2>
     </div>
     
@@ -114,7 +130,7 @@ if (isset($_SESSION['muhola_admin'])) {
 
     echo '
     <div class="w3-card-4" style="border-style: outset; background-color:white;" id="eventCalendar">
-  <div class="w3-container w3-green">
+  <div class="w3-container w3-green" id="kalenteri">
     <h2>Tapahtumakalenteri</h2>
   </div>
 
@@ -215,7 +231,7 @@ if (!isset($events) || isset($_POST['clearEventForm'])){
 
     echo '
     <div class="w3-card-4" style="border-style: outset; background-color:white; margin-bottom: 40px;">
-    <div class="w3-container w3-blue">
+    <div class="w3-container w3-blue" id="kuvagalleria">
     <h2>Kuvagalleria</h2>
     </div>
     <form class="w3-container" method="POST" enctype="multipart/form-data">
