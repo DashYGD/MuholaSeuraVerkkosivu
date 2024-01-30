@@ -167,10 +167,10 @@ include "../static/server/connect.php";
           {echo '<p style="color: blue;">Vain jäsenille</p>';
            echo '<h4 class="w3-right" style="color: red;">TÄRKEÄ!</h4>';}
 
-           else
-            { }
+          else
+          { }
 
-          echo '<h2>' . $row['otsikko'] . '</h2>';
+          echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
           echo '<p>' . $row['teksti'] .'</p>
             </div>';
           }
