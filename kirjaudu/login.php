@@ -20,13 +20,13 @@
       }
     </style>
 
-<body>
+<body id="base" style="opacity:0;">
 
 <div class="w3-container">
 
 <div id="home" class="bg w3-content" style="max-width:1564px; max-height:2100px;">
 
-<div id="layer" class="w3-content w3-white" style="max-width:1150px; max-height:2100px;">
+<div id="layer" class="w3-content w3-white" style="max-width:1150px; max-height:2100px; border-style: outset;">
 
 <div class="w3-display-container w3-content" style="max-width:1150px;">
         <img class="w3-image" src="../static/images/taustaHD.jpeg" alt="Tausta" width="100%">
@@ -83,9 +83,7 @@
 
 <script type="text/javascript" src="../static/scripts/animation.js"></script>
   <script type="text/javascript" src="../static/scripts/keyboard-accessibility.js"></script>
-  <script type="text/javascript" src="../static/scripts/scrollposition.js"></script>
   <script type="text/javascript" src="../static/scripts/sidebar.js"></script>
   <script type="text/javascript" src="../static/scripts/navigationbar.js"></script>
-  <script type="text/javascript" src="../static/scripts/eventcalendarwidget.js"></script>
 </body>
 </html>

@@ -22,8 +22,6 @@ include "server/eventHandler.php";
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="scripts/navigation.js"></script>
     <link rel="stylesheet" href="../static/styles/core.css">
@@ -44,19 +42,20 @@ include "server/eventHandler.php";
                 <a class="active w3-hide-small" href="#" onclick="toggleSection('etusivu_1')">Etusivu</a>
                 <a class="w3-hide-small" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
                 <a class="w3-hide-small" href="#" onclick="toggleSection('tapahtumakalenteri_1')">Tapahtumakalenteri</a>
+                <a class="w3-hide-small" href="#" onclick="toggleSection('kuvagalleria_1')">Kuvagalleria</a>
             </div>
                 <div class="right-buttons">
-                <a href="#" id="logoutButton" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">login</span></a>
+                <a href="#" id="logoutButton" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">logout</span></a>
                 <button style="border-style:none;" id="myMenubutton" class="menubutton1 w3-right"><span id="openmenu" class="menubutton material-symbols-outlined"></span></button>
             </div>
         </div>
 
         <div class="mySidebar" id="sidebar">
             <div class="sidebar w3-white w3-card w3-bar-block w3-animate-opacity" id="mySidebar">
-            <a class="active w3-hide-small" href="#" onclick="toggleSection('etusivu_1')">Etusivu</a>
-            <a class="w3-hide-small" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
+            <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('etusivu_1')">Etusivu</a>
+            <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
+            <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('tapahtumakalenteri_1')">Tapahtumakalenteri</a>
             <a class="w3-bar-item w3-button">Kuvagalleria</a>
-            <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
             </div>
         </div>
     </div><br>
@@ -85,23 +84,21 @@ include "server/eventHandler.php";
                     </div></p>
                     <!-- Inputs -->
                     <input type="hidden" name="tietoameista_1" id="tietoameista-input_1">
-                    <button type="button" name="submit_1" onclick="updateHiddenInputs_1(), submitForm('form_1', 'toiminta_1')">Muokkaa</button>
+                    <button type="button" name="submit_1" onclick="updateHiddenInputs_1(), submitForm('form_1', 'etusivu_2')">Muokkaa</button>
                 </form><br>
             </div><br>
             <!-- Display content -->
-            <div class="w3-card-4 w3-container w3-white">
-                <div class="w3-container">
-                    <span id="toiminta_1">
-                        <?php
-                        $sql1 = "SELECT tietoa FROM etusivu";
-                        $result= $conn->query($sql1);
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo $row["tietoa"];
-                            }
+            <div class="w3-card-4 w3-white">
+                <div id="etusivu_2">
+                    <?php
+                    $sql1 = "SELECT tietoa FROM etusivu";
+                    $result= $conn->query($sql1);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo $row["tietoa"];
                         }
-                        ?>
-                    </span>
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -132,8 +129,8 @@ include "server/eventHandler.php";
                 </form><br>
             </div><br>
             <!--- Display Content -->
-            <div class="w3-card-4 w3-container w3-white">
-                <span id="toiminta_2">
+            <div class="w3-card-4 w3-white">
+                <div id="toiminta_2">
                     <?php
                     $sql2 = "SELECT tietoa_1 FROM toiminta";
                     $result= $conn->query($sql2);
@@ -143,7 +140,7 @@ include "server/eventHandler.php";
                         }
                     }
                     ?>
-                </span>
+                </div>
             </div>
         </div>
 
@@ -288,7 +285,6 @@ function selectEvent(selectedOption) {
 
     form.submit();
 }
-
 
 
 function updateSearchResults(results) {
