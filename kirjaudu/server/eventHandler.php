@@ -95,6 +95,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: admin");
         exit();
     }
+
+
+    if (isset($_POST['sendfile'])) {
+        $file = $_FILES['filename'];
+
+        $fileName = $_FILES['filename']['name'];
+        $fileTmpName = $_FILES['filename']['tmp_name'];
+        $fileSize = $_FILES['filename']['size'];
+        $fileError = $_FILES['filename']['error'];
+        $fileType = $_FILES['filename']['type'];
+
+        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+        $allowed = array('jpg', 'png', 'jpeg');
+
+        $kohteennimi = mysqli_real_escape_string($conn, $_POST["kohteennimi"]);
+
+        if (in_array($fileExt, $allowed)) {
+            if ($fileError === 0) {
+                if ($fileSize < 50000000) {
+                    $fileNameNew = uniqid('', true) . "." . $fileExt;
+                    $fileDestination = '../../static/images' . $fileNameNew;
+                    move_uploaded_file($fileTmpName, $fileDestination);
+                    
+                    $sql = "INSERT INTO kohteet (nimi, kuva) VALUES (?, ?)";
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_bind_param($stmt, "ss", $kohteennimi, $fileNameNew);
+                    mysqli_stmt_execute($stmt);
+                    
+                    echo "onnistui";
+                } else {
+                    echo "Tiedosto on liian iso.";
+                }
+            } else {
+                echo "Tapahtui virhe";
+            }
+        } else {
+            echo "Väärän tyyppinen tiedosto";
+        }
+    }
+
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['updateEvent']) || isset($_POST['submitButton']))) {

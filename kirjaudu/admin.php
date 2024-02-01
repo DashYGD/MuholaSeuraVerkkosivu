@@ -145,100 +145,114 @@ include "server/eventHandler.php";
         </div>
 
         <!-- Section 3: Tapahtumakalenteri -->
-        <div class="sections w3-card-4 w3-white" id="tapahtumakalenteri_1" style="display:none;">
-            <div class="w3-container w3-green" id="kalenteri">
-                <h2>Tapahtumakalenteri</h2>
-            </div>
-
-            <form method="POST" class="w3-container" id="searchForm_1" style="display:flex; position: relative; flex-direction: column; max-width: 100%; margin: 2%; justify-content: center; align-items: center;">
-                <input
-                    type="text"
-                    id="searchInput_2"
-                    oninput='searchEvents(event)'
-                    name="searchInput_2"
-                    placeholder="Hae tapahtumia"
-                    style="display:flex; position: relative; width: 100%;"
-                    />
-                <input type="hidden" id="submitButton" name="submitButton">
-                <div style="display:flex; position: relative; flex-direction: column; width: 100%; align-items: center;">
-                    <div class="w3-bar-block w3-white w3-card" style="display:flex; position: absolute; flex-direction: column; align-item: center; justify-content:center; z-index:5; margin-left: 2%; margin-right: 2%; width:100%;" id="searchResultsContainer"></div>
+        <div class="sections" id="tapahtumakalenteri_1" style="display:none;">
+            <div class="w3-card-4 w3-white">
+                <div class="w3-container w3-green" id="kalenteri">
+                    <h2>Tapahtumakalenteri</h2>
                 </div>
-            </form>
 
-            <?php
-            echo' <div id="searchResults" class="w3-container">';
-            if (isset($events) && !isset($_POST['clearEventForm'])) {
-                while ($row = mysqli_fetch_assoc($events)) {
-                    echo '<div><p>';
-                    echo '<form method="POST" class="w3-container" id="form__' . $row['id'] . '">';
-                    echo '<input type="hidden" name="eventId" value="' . $row['id'] . '">';
-                    echo '<p><label>Päivämäärä:</label>';
-                    echo '<input type="date" name="newDate" value="' . $row['päivä'] . '"></p>';
-                    echo '<p><label>Otsikko:</label>';
-                    echo '<input type="text" name="newTitle" value="' . $row['otsikko'] . '"></p>';
-                    echo '<br><label>Tietoa tapahtumasta:</label><br>';
-                    echo '<div id="editor__' . $row['id'] . '" style="max-height: 150px;">' . $row['tietoa'] . ' </div>';
-                    echo '<p><input type="submit" name="updateEvent" onclick="updateHiddenInput__' . $row['id'] . '(); " value="Päivitä">';
-                    echo '<input type="hidden" name="newDescription__' . $row['id'] . '" id="newDescription__' . $row['id'] . '">
-                    <form method="POST" class="w3-container" id="clearEventForm">
-                    <input type="submit" name="clearEvents" id="clearEvents" value="Lisää uusi">
-                    </form></p></form></div>';
+                <form method="POST" class="w3-container" id="searchForm_1" style="display:flex; position: relative; flex-direction: column; max-width: 100%; margin: 2%; justify-content: center; align-items: center;">
+                    <input
+                        type="text"
+                        id="searchInput_2"
+                        oninput='searchEvents(event)'
+                        name="searchInput_2"
+                        placeholder="Hae tapahtumia"
+                        style="display:flex; position: relative; width: 100%;"
+                        />
+                    <input type="hidden" id="submitButton" name="submitButton">
+                    <div style="display:flex; position: relative; flex-direction: column; width: 100%; align-items: center;">
+                        <div class="w3-bar-block w3-white w3-card" style="display:flex; position: absolute; flex-direction: column; align-item: center; justify-content:center; z-index:5; margin-left: 2%; margin-right: 2%; width:100%;" id="searchResultsContainer"></div>
+                    </div>
+                </form>
+
+                <?php
+                echo' <div id="searchResults" class="w3-container">';
+                if (isset($events) && !isset($_POST['clearEventForm'])) {
+                    while ($row = mysqli_fetch_assoc($events)) {
+                        echo '<div><p>';
+                        echo '<form method="POST" class="w3-container" id="form__' . $row['id'] . '">';
+                        echo '<input type="hidden" name="eventId" value="' . $row['id'] . '">';
+                        echo '<p><label>Päivämäärä:</label>';
+                        echo '<input type="date" name="newDate" value="' . $row['päivä'] . '"></p>';
+                        echo '<p><label>Otsikko:</label>';
+                        echo '<input type="text" name="newTitle" value="' . $row['otsikko'] . '"></p>';
+                        echo '<br><label>Tietoa tapahtumasta:</label><br>';
+                        echo '<div id="editor__' . $row['id'] . '" style="max-height: 150px;">' . $row['tietoa'] . ' </div>';
+                        echo '<p><input type="submit" name="updateEvent" onclick="updateHiddenInput__' . $row['id'] . '(); " value="Päivitä">';
+                        echo '<input type="hidden" name="newDescription__' . $row['id'] . '" id="newDescription__' . $row['id'] . '">
+                        <form method="POST" class="w3-container" id="clearEventForm">
+                        <input type="submit" name="clearEvents" id="clearEvents" value="Lisää uusi">
+                        </form></p></form></div>';
+                                
+                        echo '<script>var quill__' . $row['id'] . ' = new Quill("#editor__' . $row['id'] . '", { theme: "snow", name: "newDescription__' . $row['id'] . '" });
                             
-                    echo '<script>var quill__' . $row['id'] . ' = new Quill("#editor__' . $row['id'] . '", { theme: "snow", name: "newDescription__' . $row['id'] . '" });
-                        
-                            console.log(document.getElementById("newDescription__' . $row['id'] . '").value);
-                            function updateHiddenInput__' . $row['id'] . '() {
-                                var quillContent = quill__' . $row['id'] . '.root.innerHTML;
-                                console.log(quillContent);
-                                        
+                                console.log(document.getElementById("newDescription__' . $row['id'] . '").value);
+                                function updateHiddenInput__' . $row['id'] . '() {
+                                    var quillContent = quill__' . $row['id'] . '.root.innerHTML;
+                                    console.log(quillContent);
+                                            
 
-                                document.getElementById("newDescription__' . $row['id'] . '").value = quillContent;
-                            }
-                        </script>';
+                                    document.getElementById("newDescription__' . $row['id'] . '").value = quillContent;
+                                }
+                            </script>';
+                    }
                 }
-            }
-            if (!isset($events) || isset($_POST['clearEventForm'])){
-                echo '<div>';
-                echo '<form method="POST" class="w3-container" id="newEventForm">';
-                echo '<p><label>Päivämäärä:</label>';
-                echo '<input type="date" name="newDate" required></p>';
-                echo '<p><label>Otsikko:</label>';
-                echo '<input type="text" name="newTitle" required></p>';
-                echo '<br><label>Tietoa tapahtumasta:</label><br>';
-                echo '<div id="editor_newEvent" style="max-height:200px;"></div>';
-                echo '<p><input type="submit" name="addEvent" onclick="updateHiddenInput_5();" value="Lisää"></p>';
-                echo '<input type="hidden" name="newDescription_1" id="newDescription_1">';
-                echo '</form></div>';
+                if (!isset($events) || isset($_POST['clearEventForm'])){
+                    echo '<div>';
+                    echo '<form method="POST" class="w3-container" id="newEventForm">';
+                    echo '<p><label>Päivämäärä:</label>';
+                    echo '<input type="date" name="newDate" required></p>';
+                    echo '<p><label>Otsikko:</label>';
+                    echo '<input type="text" name="newTitle" required></p>';
+                    echo '<br><label>Tietoa tapahtumasta:</label><br>';
+                    echo '<div id="editor_newEvent" style="max-height:200px;"></div>';
+                    echo '<p><input type="submit" name="addEvent" onclick="updateHiddenInput_5();" value="Lisää"></p>';
+                    echo '<input type="hidden" name="newDescription_1" id="newDescription_1">';
+                    echo '</form></div>';
 
-                echo '<script>
-                    var quill_new_1;
+                    echo '<script>
+                        var quill_new_1;
 
-                    function initQuill() {
-                        if (!quill_new_1) {
-                            quill_new_1 = new Quill("#editor_newEvent", { theme: "snow" });
+                        function initQuill() {
+                            if (!quill_new_1) {
+                                quill_new_1 = new Quill("#editor_newEvent", { theme: "snow" });
+                            }
                         }
-                    }
 
-                    function updateHiddenInput_5() {
-                        if (quill_new_1) {
-                            var quillContent = quill_new_1.root.innerHTML;
-                            console.log(quillContent);
-                            document.getElementById("newDescription_1").value = quillContent;
+                        function updateHiddenInput_5() {
+                            if (quill_new_1) {
+                                var quillContent = quill_new_1.root.innerHTML;
+                                console.log(quillContent);
+                                document.getElementById("newDescription_1").value = quillContent;
+                            }
                         }
-                    }
 
-                    document.addEventListener("DOMContentLoaded", function() {
-                        initQuill();
-                    });
-                    
-                </script>';
-            }
-            ?>
-            <br>
-        </div></div><br><br>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            initQuill();
+                        });
+                        
+                    </script></div>';
+                }
+                ?>
+                <br>
+            </div>
+        </div>
 
         <!-- Section 4: Kuvagalleria -->
-        <div class="w3-card-4" style="display:none;">
+        <div class="sections" id="kuvagalleria_1" style="display:none;">
+            <div class="w3-card-4 w3-white">
+                <div class="w3-container w3-blue" id="kuvagalleria">
+                    <h2>Kuvagalleria</h2>
+                </div>
+                <form class="w3-container" method="POST" enctype="multipart/form-data" style="margin:2%;">
+                    <input placeholder="Tietoa kuvasta" class="w3- input" type="text" name="kohteennimi">
+                    <p>Lisää kuva, suositeltu koko: 1920x1080</p>
+                    <input type="file" id="myFile" name="filename">
+                    <input type="submit" name="sendfile">
+                </form>
+                <br>
+            </div>
         </div>
     </div>
 
@@ -255,27 +269,20 @@ var form=document.getElementById("searchForm_1");
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('Stored Event ID:', storedEventId);
 
-    // Set the value of submitButton based on storedEventId
     var submitButtonInput = document.getElementById('submitButton');
-        var storedEventId = localStorage.getItem("selectedEventId");
-        console.log('Stored Event ID:', storedEventId, submitButtonInput.value);
+    var storedEventId = localStorage.getItem("selectedEventId");
 
-        submitButtonInput.value = storedEventId;
+    submitButtonInput.value = storedEventId;
 
 });
 
 
 
 function selectEvent(selectedOption) {
-    console.log(selectedOption);
     var selectedEventId = selectedOption.getAttribute('data-event-id');
     var selectedEventValue = selectedOption.getAttribute('name');
     var form = document.getElementById('searchForm_1');
-
-    console.log('Selected Event ID:', selectedEventId);
-    console.log(selectedEventValue);
 
     document.getElementById('searchInput_2').value = selectedEventValue;
     localStorage.setItem('selectedEventId', selectedEventId);
@@ -303,7 +310,6 @@ function updateSearchResults(results) {
 function searchEvents(event) {
   
     var input = document.getElementById('searchInput_2').value;
-    console.log(input + "hello");
     var searchResultsContainer = document.getElementById('searchResultsContainer');
     
   
@@ -318,7 +324,6 @@ function searchEvents(event) {
   
       xhr.open('GET', 'server/search_events.php?query=' + input, true);
       xhr.send();
-      console.log(input);
     } else {
       searchResultsContainer.innerHTML = '';
     }
