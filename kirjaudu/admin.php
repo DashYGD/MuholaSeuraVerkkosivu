@@ -43,10 +43,10 @@ include "server/eventHandler.php";
             <div class="center-links">
                 <a class="active w3-hide-small" href="#" onclick="toggleSection('etusivu_1')">Etusivu</a>
                 <a class="w3-hide-small" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
-                <a class="w3-hide-small" href="/kuvagalleria">Kuvagalleria</a>
+                <a class="w3-hide-small" href="#" onclick="toggleSection('tapahtumakalenteri_1')">Tapahtumakalenteri</a>
             </div>
                 <div class="right-buttons">
-                <a href="/kirjaudu" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">login</span></a>
+                <a href="#" id="logoutButton" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">login</span></a>
                 <button style="border-style:none;" id="myMenubutton" class="menubutton1 w3-right"><span id="openmenu" class="menubutton material-symbols-outlined"></span></button>
             </div>
         </div>
@@ -55,7 +55,7 @@ include "server/eventHandler.php";
             <div class="sidebar w3-white w3-card w3-bar-block w3-animate-opacity" id="mySidebar">
             <a class="active w3-hide-small" href="#" onclick="toggleSection('etusivu_1')">Etusivu</a>
             <a class="w3-hide-small" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
-            <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
+            <a class="w3-bar-item w3-button">Kuvagalleria</a>
             <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
             </div>
         </div>
@@ -85,13 +85,13 @@ include "server/eventHandler.php";
                     </div></p>
                     <!-- Inputs -->
                     <input type="hidden" name="tietoameista_1" id="tietoameista-input_1">
-                    <input type="submit" name="submit_1" value="Muokkaa" onclick="updateHiddenInputs_1()">
+                    <button type="button" name="submit_1" onclick="updateHiddenInputs_1(), submitForm('form_1', 'toiminta_1')">Muokkaa</button>
                 </form><br>
             </div><br>
             <!-- Display content -->
             <div class="w3-card-4 w3-container w3-white">
                 <div class="w3-container">
-                    <span>
+                    <span id="toiminta_1">
                         <?php
                         $sql1 = "SELECT tietoa FROM etusivu";
                         $result= $conn->query($sql1);
@@ -128,12 +128,12 @@ include "server/eventHandler.php";
                     </div></p>
                     <!--- Inputs -->
                     <input type="hidden" name="tietoatoiminta_1" id="tietoatoiminta-input_1">
-                    <input type="submit" name="submit_2" value="Muokkaa" onclick="updateHiddenInput_2()">
+                    <button type="button" name="submit_2" onclick="updateHiddenInputs_2(), submitForm('form_2', 'toiminta_2')">Muokkaa</button>
                 </form><br>
             </div><br>
             <!--- Display Content -->
-            <div class="w3-card-4 w3-container w3-white"><br>
-                <span>
+            <div class="w3-card-4 w3-container w3-white">
+                <span id="toiminta_2">
                     <?php
                     $sql2 = "SELECT tietoa_1 FROM toiminta";
                     $result= $conn->query($sql2);
@@ -272,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function selectEvent(selectedOption) {
+    console.log(selectedOption);
     var selectedEventId = selectedOption.getAttribute('data-event-id');
     var selectedEventValue = selectedOption.getAttribute('name');
     var form = document.getElementById('searchForm_1');
@@ -283,7 +284,7 @@ function selectEvent(selectedOption) {
     localStorage.setItem('selectedEventId', selectedEventId);
     document.getElementById('submitButton').value = selectedEventId;
 
-    localStorage.setItem('containerId', document.getElementById("eventCalendar").getAttribute('id'));
+    localStorage.setItem('containerId', document.getElementById("tapahtumakalenteri_1").getAttribute('id'));
 
     form.submit();
 }
@@ -300,21 +301,13 @@ function updateSearchResults(results) {
 
         searchResultsContainer.appendChild(resultItem);
     }
-
-    var elements = document.getElementsByClassName('scrollpos');
-
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener('click', function () {
-            console.log(elements[i]);
-            localStorage.setItem('scrollPosition', window.scrollY);
-        });
-    }
 }
 
 
 function searchEvents(event) {
   
     var input = document.getElementById('searchInput_2').value;
+    console.log(input + "hello");
     var searchResultsContainer = document.getElementById('searchResultsContainer');
     
   
@@ -338,6 +331,8 @@ function searchEvents(event) {
 </script>
 
 <script type="text/javascript" src="scripts/scrollposition.js"></script>
+<script type="text/javascript" src="scripts/dynamicSubmit.js"></script>
+<script type="text/javascript" src="scripts/logout.js"></script>
 
 
 

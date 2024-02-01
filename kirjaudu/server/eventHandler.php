@@ -1,6 +1,11 @@
 <?php
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
     if(isset($_POST['updateEvent'])) {
+        include "../static/server/connect.php";
         $eventId = $_POST['eventId'];
         $newDate = $_POST['newDate'];
         $newTitle = $_POST['newTitle'];
@@ -19,28 +24,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($affected_rows > 0) {
             echo "Update successful";
         } else {
-            echo "No rows updated";
+            //echo "No rows updated";
         }
         mysqli_stmt_close($stmt);
     }
 
-    if (isset($_POST['submit_1'])) {
+    if (isset($_POST['tietoameista_1'])) {
+        include "../../static/server/connect.php";
         $tietoameista = $_POST['tietoameista_1'];
         $sql1 = "UPDATE etusivu SET tietoa = '$tietoameista'";
         $result1 = mysqli_query($conn, $sql1);
-        header("Location: admin");
-        exit(); // Ensure no further output is sent
+        
+        $sql1_select = "SELECT tietoa FROM etusivu";
+        $result_select = $conn->query($sql1_select);
+        
+        if ($result_select->num_rows > 0) {
+            // Output the updated content
+            while ($row = $result_select->fetch_assoc()) {
+                echo $row["tietoa"];
+            }
+        } else {
+            echo "Error: Unable to fetch updated content";
+        }
     }
 
-    if (isset($_POST['submit_2'])) {
+    if (isset($_POST['tietoatoiminta_1'])) {
+        include "../../static/server/connect.php";
         $tietoatoiminta = $_POST['tietoatoiminta_1'];
         $sql2 = "UPDATE toiminta SET tietoa_1 = '$tietoatoiminta'";
         $result2 = mysqli_query($conn, $sql2);
-        header("Location: admin");
-        exit(); // Ensure no further output is sent
+        
+        $sql2_select = "SELECT tietoa_1 FROM toiminta";
+        $result_select = $conn->query($sql2_select);
+        
+        if ($result_select->num_rows > 0) {
+            // Output the updated content
+            while ($row = $result_select->fetch_assoc()) {
+                echo $row["tietoa_1"];
+            }
+        } else {
+            echo "Error: Unable to fetch updated content";
+        }
     }
 
     if(isset($_POST['addEvent'])) {
+        include "../static/server/connect.php";
         if(isset($_POST['newDate']) && isset($_POST['newTitle']) && isset($_POST['newDescription_1'])) {
             $newDate = $_POST['newDate'];
             $newTitle = $_POST['newTitle'];
@@ -70,6 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['updateEvent']) || isset($_POST['submitButton']))) {
+    include "../static/server/connect.php";
     if (isset($_POST['updateEvent'])) {
         $searchInput = $_POST['eventId'];
     }

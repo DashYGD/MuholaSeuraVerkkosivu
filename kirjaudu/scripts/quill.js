@@ -10,7 +10,7 @@ function updateHiddenInputs_1() {
     document.getElementById('tietoameista-input_1').value = quill1.root.innerHTML;
     
 }
-function updateHiddenInput_2() {
+function updateHiddenInputs_2() {
     document.getElementById('tietoatoiminta-input_1').value = quill2.root.innerHTML;
 }
 
