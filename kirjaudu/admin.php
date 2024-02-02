@@ -8,7 +8,10 @@ if (!isset($_SESSION['muhola_admin'])) {
     exit();
 }
 
-include "server/eventHandler.php";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include "server/eventHandler.php";
+    include "server/imageHandler.php";
+}
 
 ?>
 <!DOCTYPE html>
@@ -55,7 +58,7 @@ include "server/eventHandler.php";
             <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('etusivu_1')">Etusivu</a>
             <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
             <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('tapahtumakalenteri_1')">Tapahtumakalenteri</a>
-            <a class="w3-bar-item w3-button">Kuvagalleria</a>
+            <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('kuvagalleria_1')">Kuvagalleria</a>
             </div>
         </div>
     </div><br>
@@ -170,7 +173,7 @@ include "server/eventHandler.php";
                 echo' <div id="searchResults" class="w3-container">';
                 if (isset($events) && !isset($_POST['clearEventForm'])) {
                     while ($row = mysqli_fetch_assoc($events)) {
-                        echo '<div><p>';
+                        echo '<div>';
                         echo '<form method="POST" class="w3-container" id="form__' . $row['id'] . '">';
                         echo '<input type="hidden" name="eventId" value="' . $row['id'] . '">';
                         echo '<p><label>Päivämäärä:</label>';
@@ -232,25 +235,70 @@ include "server/eventHandler.php";
                             initQuill();
                         });
                         
-                    </script></div>';
+                    </script>';
                 }
+                echo '</div>';
                 ?>
                 <br>
             </div>
         </div>
 
         <!-- Section 4: Kuvagalleria -->
-        <div class="sections" id="kuvagalleria_1" style="display:none;">
+        <div class="sections" id="kuvagalleria_1" style="display:none; overflow:hidden;">
             <div class="w3-card-4 w3-white">
                 <div class="w3-container w3-blue" id="kuvagalleria">
                     <h2>Kuvagalleria</h2>
                 </div>
-                <form class="w3-container" method="POST" enctype="multipart/form-data" style="margin:2%;">
-                    <input placeholder="Tietoa kuvasta" class="w3- input" type="text" name="kohteennimi">
-                    <p>Lisää kuva, suositeltu koko: 1920x1080</p>
-                    <input type="file" id="myFile" name="filename">
-                    <input type="submit" name="sendfile">
+                <form method="POST" class="w3-container" id="searchForm_2" style="display:flex; position: relative; flex-direction: column; max-width: 100%; margin: 2%; justify-content: center; align-items: center;">
+                    <input
+                        type="text"
+                        id="searchInput_3"
+                        oninput='searchImages(event)'
+                        name="searchInput_3"
+                        placeholder="Hae kuvia"
+                        style="display:flex; position: relative; width: 100%;"
+                        />
+                    <input type="hidden" id="submitButton_2" name="submitButton_2">
+                    <div style="display:flex; position: relative; flex-direction: column; width: 100%; align-items: center;">
+                        <div class="w3-bar-block w3-white w3-card" style="display:flex; position: absolute; flex-direction: column; align-item: center; justify-content:center; z-index:5; margin-left: 2%; margin-right: 2%; width:100%;" id="searchResultsContainer_2"></div>
+                    </div>
                 </form>
+                <?php
+                echo' <div id="searchResults_2" class="w3-container">';
+                if (isset($images) && !isset($_POST['clearEventForm'])) {
+                    while ($row = mysqli_fetch_assoc($images)) {
+                        echo '<div>';
+                        echo '<form class="w3-container" method="POST" enctype="multipart/form-data">';
+                        echo '<input type="hidden" name="imageId" value="' . $row['id'] . '">';
+                        echo '<p><label>Otsikko:</label>';
+                        echo '<input placeholder="Kuvan otsikko" type="text" name="newTitle" value="' . $row['kuva_otsikko'] . '" required></p>';
+                        echo '<p><label>Tietoa:</label>';
+                        echo '<input placeholder="Tietoa kuvasta" type="text" name="newDescription" value="' . $row['kuva_tietoa'] . '" required></p>';
+                        echo '<span>Aikaisempi kuva:';
+                        echo '<p><img src="' . $row['kuva'] . '" alt="' . $row['kuva_otsikko'] .'" style="width: 60%;"></p>';
+                        echo '</div>';
+                        echo '<p>Vaihda kuva, suositeltu koko: 1920x1080</p>';
+                        echo '<input type="file" id="myFile" name="newImage"><br><br>';
+                        echo '<p><input type="submit" name="updateImage" value="Päivitä">
+                        <form method="POST" class="w3-container" id="clearImageForm">
+                        <input type="submit" name="clearImage" id="clearImage" value="Lisää uusi">
+                        </form></p></form>';
+                    }
+                } else {
+                    echo '<div>';
+                    echo '<form class="w3-container" method="POST" enctype="multipart/form-data">';
+                    echo '<p><label>Otsikko:</label>';
+                    echo '<input placeholder="Kuvan otsikko" type="text" name="newTitle"><br></p>';
+                    echo '<p><label>Tietoa:</label>';
+                    echo '<input placeholder="Tietoa kuvasta" type="text" name="newDescription"></p>';
+                    echo '<p>Lisää kuva, suositeltu koko: 1920x1080</p>';
+                    echo '<input type="file" id="myFile" name="newImage"><br><br>';
+                    echo '<input type="submit" name="addImage">';
+                    echo '</form>';
+                    echo '</div>';
+                }
+                echo '</div>';
+                ?>
                 <br>
             </div>
         </div>
@@ -265,7 +313,8 @@ include "server/eventHandler.php";
 
 
 <script>
-var form=document.getElementById("searchForm_1");
+var form_1=document.getElementById("searchForm_1");
+var form_2=document.getElementById("searchForm_2");
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -276,61 +325,10 @@ document.addEventListener('DOMContentLoaded', function () {
     submitButtonInput.value = storedEventId;
 
 });
-
-
-
-function selectEvent(selectedOption) {
-    var selectedEventId = selectedOption.getAttribute('data-event-id');
-    var selectedEventValue = selectedOption.getAttribute('name');
-    var form = document.getElementById('searchForm_1');
-
-    document.getElementById('searchInput_2').value = selectedEventValue;
-    localStorage.setItem('selectedEventId', selectedEventId);
-    document.getElementById('submitButton').value = selectedEventId;
-
-    localStorage.setItem('containerId', document.getElementById("tapahtumakalenteri_1").getAttribute('id'));
-
-    form.submit();
-}
-
-
-function updateSearchResults(results) {
-    var searchResultsContainer = document.getElementById('searchResultsContainer');
-    searchResultsContainer.innerHTML = '';
-
-    for (var i = 0; i < results.length; i++) {
-        var resultItem = document.createElement('div');
-        resultItem.innerHTML = '<div style="text-align: center;" class="scrollpos w3-bar-item w3-button" onclick="selectEvent(this)" name="' + results[i].otsikko + '" data-event-id="' + results[i].id + '">' + results[i].otsikko + '</div>';
-
-        searchResultsContainer.appendChild(resultItem);
-    }
-}
-
-
-function searchEvents(event) {
-  
-    var input = document.getElementById('searchInput_2').value;
-    var searchResultsContainer = document.getElementById('searchResultsContainer');
-    
-  
-    if (input.length >= 1) {
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          var results = JSON.parse(xhr.responseText);
-          updateSearchResults(results);
-        }
-      };
-  
-      xhr.open('GET', 'server/search_events.php?query=' + input, true);
-      xhr.send();
-    } else {
-      searchResultsContainer.innerHTML = '';
-    }
-    return true;
-  }
 </script>
 
+<script type="text/javascript" src="scripts/eventHandler.js"></script>
+<script type="text/javascript" src="scripts/imageHandler.js"></script>
 <script type="text/javascript" src="scripts/scrollposition.js"></script>
 <script type="text/javascript" src="scripts/dynamicSubmit.js"></script>
 <script type="text/javascript" src="scripts/logout.js"></script>
