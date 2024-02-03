@@ -4,8 +4,8 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    if(isset($_POST['updateEvent'])) {
-        include "../static/server/connect.php";
+    if(isset($_POST['eventId'])) {
+        include "../../static/server/connect.php";
         $eventId = $_POST['eventId'];
         $newDate = $_POST['newDate'];
         $newTitle = $_POST['newTitle'];
@@ -24,8 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($affected_rows > 0) {
             echo "Update successful";
         } else {
+            echo "No rows updated";
         }
         mysqli_stmt_close($stmt);
+        
     }
 
     if (isset($_POST['tietoameista_1'])) {
@@ -81,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 die('Error in executing the SQL statement: ' . mysqli_stmt_error($insertStmt));
             }
             if(mysqli_stmt_affected_rows($insertStmt) > 0) {
-                echo "Event added successfully.";
+                //echo "Event added successfully.";
             } else {
                 echo "Failed to add event.";
             }
@@ -95,9 +97,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['updateEvent']) || isset($_POST['submitButton']))) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitButton'])) {
     include "../static/server/connect.php";
-    if (isset($_POST['updateEvent'])) {
+    if (isset($_POST['eventId'])) {
         $searchInput = $_POST['eventId'];
     }
     if (isset($_POST['submitButton'])) {
@@ -115,7 +117,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['updateEvent']) || iss
         die('Error in executing the SQL statement: ' . mysqli_stmt_error($selectStmt));
     }
     $events = mysqli_stmt_get_result($selectStmt);
-    echo "<script>console.log(" . json_encode($events) . ");</script>";
     if ($events === false) {
         die('Error in getting result set: ' . mysqli_stmt_error($selectStmt));
     }

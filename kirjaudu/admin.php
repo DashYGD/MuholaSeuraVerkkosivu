@@ -173,8 +173,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo' <div id="searchResults" class="w3-container">';
                 if (isset($events) && !isset($_POST['clearEventForm'])) {
                     while ($row = mysqli_fetch_assoc($events)) {
-                        echo '<div>';
-                        echo '<form method="POST" class="w3-container" id="form__' . $row['id'] . '">';
+                        echo '<div class="w3-container">';
+                        echo '<form method="POST" class="event-update-form" id="form__' . $row['id'] . '">';
                         echo '<input type="hidden" name="eventId" value="' . $row['id'] . '">';
                         echo '<p><label>Päivämäärä:</label>';
                         echo '<input type="date" name="newDate" value="' . $row['päivä'] . '"></p>';
@@ -184,9 +184,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         echo '<div id="editor__' . $row['id'] . '" style="max-height: 150px;">' . $row['tietoa'] . ' </div>';
                         echo '<p><input type="submit" name="updateEvent" onclick="updateHiddenInput__' . $row['id'] . '(); " value="Päivitä">';
                         echo '<input type="hidden" name="newDescription__' . $row['id'] . '" id="newDescription__' . $row['id'] . '">
-                        <form method="POST" class="w3-container" id="clearEventForm">
-                        <input type="submit" name="clearEvents" id="clearEvents" value="Lisää uusi">
-                        </form></p></form></div>';
+                        <input type="button" name="clearImage" onclick="clearImages()" id="clearImage" value="Lisää uusi"></form>';
+                        echo '<form method="POST" id="clearImageForm">
+                        </form>';
+                        echo '</div>';
                                 
                         echo '<script>var quill__' . $row['id'] . ' = new Quill("#editor__' . $row['id'] . '", { theme: "snow", name: "newDescription__' . $row['id'] . '" });
                             
@@ -200,8 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 }
                             </script>';
                     }
-                }
-                if (!isset($events) || isset($_POST['clearEventForm'])){
+                } else {
                     echo '<div>';
                     echo '<form method="POST" class="w3-container" id="newEventForm">';
                     echo '<p><label>Päivämäärä:</label>';
@@ -265,24 +265,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </form>
                 <?php
                 echo' <div id="searchResults_2" class="w3-container">';
-                if (isset($images) && !isset($_POST['clearEventForm'])) {
+                if (isset($images) && !isset($_POST['clearImageForm'])) {
                     while ($row = mysqli_fetch_assoc($images)) {
-                        echo '<div>';
-                        echo '<form class="w3-container" method="POST" enctype="multipart/form-data">';
+                        echo '<div class="w3-container">';
+                        echo '<form class="image-update-form" method="POST" enctype="multipart/form-data">';
                         echo '<input type="hidden" name="imageId" value="' . $row['id'] . '">';
                         echo '<p><label>Otsikko:</label>';
                         echo '<input placeholder="Kuvan otsikko" type="text" name="newTitle" value="' . $row['kuva_otsikko'] . '" required></p>';
                         echo '<p><label>Tietoa:</label>';
                         echo '<input placeholder="Tietoa kuvasta" type="text" name="newDescription" value="' . $row['kuva_tietoa'] . '" required></p>';
-                        echo '<span>Aikaisempi kuva:';
-                        echo '<p><img src="' . $row['kuva'] . '" alt="' . $row['kuva_otsikko'] .'" style="width: 60%;"></p>';
-                        echo '</div>';
+                        echo '<span>Nykyinen kuva:';
+                        echo '<p><img id="image-display" src="' . $row['kuva'] . '" alt="' . $row['kuva_otsikko'] .'" style="width: 60%;"></p>';
                         echo '<p>Vaihda kuva, suositeltu koko: 1920x1080</p>';
                         echo '<input type="file" id="myFile" name="newImage"><br><br>';
-                        echo '<p><input type="submit" name="updateImage" value="Päivitä">
-                        <form method="POST" class="w3-container" id="clearImageForm">
-                        <input type="submit" name="clearImage" id="clearImage" value="Lisää uusi">
-                        </form></p></form>';
+                        echo '<input type="submit" class="update-image-btn" name="updateImage" value="Päivitä">
+                        <input type="button" name="clearImage" onclick="clearImages()" id="clearImage" value="Lisää uusi"></form>';
+                        echo '<form method="POST" id="clearImageForm">
+                        </form>';
+                        echo '</div>';
                     }
                 } else {
                     echo '<div>';
@@ -313,9 +313,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <script>
-var form_1=document.getElementById("searchForm_1");
-var form_2=document.getElementById("searchForm_2");
-
 
 document.addEventListener('DOMContentLoaded', function () {
 

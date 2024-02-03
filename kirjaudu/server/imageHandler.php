@@ -1,7 +1,7 @@
 <?php
 
-if(isset($_POST['updateImage'])) {
-    include "../static/server/connect.php";
+if(isset($_POST['imageId'])) {
+    include "../../static/server/connect.php";
     $imageId = $_POST['imageId'];
     $newImg = $_FILES['newImage'];
 
@@ -33,7 +33,7 @@ if(isset($_POST['updateImage'])) {
             if ($fileError === 0) {
                 if ($fileSize < 50000000) {
                     $fileNameNew = uniqid('', true) . "." . $fileExt;
-                    $fileDestination = '../static/images/' . $fileNameNew;
+                    $fileDestination = '../../static/images/' . $fileNameNew;
                     move_uploaded_file($fileTmpName, $fileDestination);
 
                     // Delete the previous image file
@@ -66,7 +66,8 @@ if(isset($_POST['updateImage'])) {
     }
     $affected_rows = mysqli_stmt_affected_rows($stmt);
     if ($affected_rows > 0) {
-        echo "Update successful";
+        //echo "Update successful";
+        echo $fileDestination;
     } else {
         //echo "No rows updated";
     }
@@ -115,9 +116,9 @@ if (isset($_POST['addImage'])) {
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['updateImage']) || isset($_POST['submitButton_2']))) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitButton_2'])) {
     include "../static/server/connect.php";
-    if (isset($_POST['updateImage'])) {
+    if (isset($_POST['imageId'])) {
         $searchInput = $_POST['imageId'];
     }
     if (isset($_POST['submitButton_2'])) {
@@ -135,7 +136,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['updateImage']) || iss
         die('Error in executing the SQL statement: ' . mysqli_stmt_error($selectStmt));
     }
     $images = mysqli_stmt_get_result($selectStmt);
-    echo "<script>console.log(" . json_encode($images) . ");</script>";
     if ($images === false) {
         die('Error in getting result set: ' . mysqli_stmt_error($selectStmt));
     }
