@@ -14,8 +14,6 @@ include "../static/server/connect.php";
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="../static/styles/core.css">
@@ -45,7 +43,8 @@ include "../static/server/connect.php";
           <div class="center-links">
             <a class="active w3-hide-small" href="/etusivu">Etusivu</a>
             <a class="w3-hide-small" href="/toiminta">Toiminta</a>
-            <a class="w3-hide-small" href="/kuvagalleria">Kuvagalleria</a>
+            <a class="w3-hide-small" href="/tapahtumakalenteri">Tapahtumakalenteri</a>
+            <a class="w3-hide-small w3-hide-medium" href="/kuvagalleria">Kuvagalleria</a>
           </div>
           <div class="right-buttons">
             <a href="/kirjaudu" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">login</span></a>
@@ -57,8 +56,8 @@ include "../static/server/connect.php";
           <div class="sidebar w3-white w3-card w3-bar-block w3-animate-opacity" id="mySidebar">
             <a href="/etusivu" class="w3-bar-item w3-button">Etusivu</a>
             <a href="/toiminta" class="w3-bar-item w3-button">Toiminta</a>
-            <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
             <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
+            <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
           </div>
         </div>
       </div>

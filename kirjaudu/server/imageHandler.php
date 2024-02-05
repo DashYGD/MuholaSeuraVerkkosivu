@@ -36,7 +36,6 @@ if(isset($_POST['imageId'])) {
                     $fileDestination = '../../static/images/' . $fileNameNew;
                     move_uploaded_file($fileTmpName, $fileDestination);
 
-                    // Delete the previous image file
                     unlink($existingImagePath);
                 } else {
                     echo "Tiedosto on liian iso.";

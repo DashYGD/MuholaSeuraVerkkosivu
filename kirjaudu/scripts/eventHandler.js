@@ -44,7 +44,7 @@ function searchEvents(event) {
         }
       };
   
-      xhr.open('GET', 'server/search_events.php?query=' + input, true);
+      xhr.open('GET', 'server/event_query.php?query=' + input, true);
       xhr.send();
     } else {
       searchResultsContainer.innerHTML = '';

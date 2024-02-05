@@ -236,6 +236,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         });
                         
                     </script>';
+
+                    echo '<br><h3><label>Viimeisin tapahtuma:</label></h3>';
+                    echo '<div id="previous-event-container"></div>';
                 }
                 echo '</div>';
                 ?>
@@ -296,6 +299,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo '<input type="submit" name="addImage">';
                     echo '</form>';
                     echo '</div>';
+                    
+                    echo '<br><h3><label>Viimeisin kuva:</label></h3>';
+                    echo '<div id="previous-image-container"></div>';
+
+
                 }
                 echo '</div>';
                 ?>

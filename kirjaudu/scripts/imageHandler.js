@@ -41,7 +41,7 @@ function searchImages(event) {
         }
       };
   
-      xhr.open('GET', 'server/search_images.php?query=' + input, true);
+      xhr.open('GET', 'server/image_query.php?query=' + input, true);
       xhr.send();
     } else {
       searchResultsContainer.innerHTML = '';

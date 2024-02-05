@@ -4,23 +4,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     imageUpdateForms.forEach(form => {
         form.addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
-            const formData = new FormData(form); // Create FormData object
+            const formData = new FormData(form);
 
-            // Send form data to the server using AJAX
             fetch("server/imageHandler.php", {
                 method: "POST",
                 body: formData
             })
-            .then(response => response.text()) // Parse response as text
+            .then(response => response.text())
             .then(data => {
-                // Update UI based on server response
                 if (document.getElementById('image-display')) {
                     document.getElementById('image-display').src = data;
                 }
 
-                alert(data); // Show alert with server response (you can customize this)
+                alert(data);
             })
             .catch(error => {
                 console.error("Error:", error);
@@ -33,24 +31,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     eventUpdateForms.forEach(form => {
         form.addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
-            const formData = new FormData(form); // Create FormData object
+            const formData = new FormData(form);
 
-            // Send form data to the server using AJAX
             fetch("server/eventHandler.php", {
                 method: "POST",
                 body: formData
             })
-            .then(response => response.text()) // Parse response as text
+            .then(response => response.text())
             .then(data => {
-                alert(data); // Show alert with server response (you can customize this)
+                alert(data);
             })
             .catch(error => {
                 console.error("Error:", error);
             });
         });
     });
+
+    var xhr = new XMLHttpRequest();
+xhr.open('GET', 'server/fetchPrevious.php', true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        var responseData = JSON.parse(xhr.responseText);
+        
+        var imageContainer = document.getElementById('previous-image-container');
+        if (imageContainer && responseData.kuvagalleria) {
+            var imageData = responseData.kuvagalleria;
+            imageContainer.innerHTML = '<div class="w3-card-4 w3-container w3-white" style="width:50%; overflow:hidden;"><center>' +
+                                        '<h2><b>' + imageData.kuva_otsikko + '</b></h2>' +
+                                        '<img src="' + imageData.kuva + '" alt="' + imageData.kuva_tietoa + '" style="width:100%;">' +
+                                        '<p>' + imageData.kuva_tietoa + '</p>' +
+                                        '</center></div>';
+        }
+        
+        var eventContainer = document.getElementById('previous-event-container');
+        if (eventContainer && responseData.tapahtumakalenteri) {
+            var eventData = responseData.tapahtumakalenteri;
+            eventContainer.innerHTML = '<div class="w3-card-4 w3-container w3-white" style="width:50%; overflow:hidden;">' +
+                                        '<p>' + eventData.päivä + '</p>' +
+                                        '<center><h2><b>' + eventData.otsikko + '</b></h2>' +
+                                        '<p>' + eventData.tietoa + '<br></p>' +
+                                        '</center></div>';
+        }
+    }
+};
+xhr.send();
 
 
 
@@ -68,12 +94,10 @@ function submitForm(selectedForm, selectedDisplay) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            // Update the content of the span element with the received data
             document.getElementById(selectedDisplay).innerHTML = this.responseText;
         }
     };
     xhttp.open("POST", "server/eventHandler.php", true);
-    // Add FormData with appropriate data to send to the server
     var formData = new FormData(document.getElementById(selectedForm));
     xhttp.send(formData);
 }
