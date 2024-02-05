@@ -1,8 +1,14 @@
 <?php
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "root";
 $database = "muholaseura";
+
 // Create connection
 $conn = new mysqli ($servername, $username, $password, $database);
 $conn->set_charset("utf8mb4");
