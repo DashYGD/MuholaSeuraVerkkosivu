@@ -3,10 +3,41 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+
+
+include "../static/server/connect.php";
+
+checkRememberMe($conn);
+
+
+function checkRememberMe($conn) {
+  if (isset($_COOKIE['auth_token'])) {
+      $token = $_COOKIE['auth_token'];
+      $stmt = $conn->prepare("SELECT * FROM käyttäjät WHERE token = ?");
+      $stmt->bind_param("s", $token);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      if ($result->num_rows == 1) {
+          $row = $result->fetch_assoc();
+          if ($row['is_admin'] == 1) {
+            $_SESSION['muhola_admin'] = true;
+            header("Location: admin");
+          } else {
+              $_SESSION['muhola_user'] = $row['name'];
+              header("Location: dashboard");
+          }
+          return true;
+      }
+  }
+  return false;
+}
+
 if (isset($_SESSION['login_error'])) {
     $login_error = $_SESSION['login_error'];
     unset($_SESSION['login_error']);
 }
+
 
 $registration_attempt = isset($_SESSION['registration_attempt']) && $_SESSION['registration_attempt'];
 
@@ -47,50 +78,53 @@ if ($registration_attempt) {
 
 <body id="base" style="opacity:0;">
 
-<div class="w3-container">
-    <div id="home" class="bg w3-content" style="max-width:1564px; max-height:2100px;">
-        <div id="layer" class="w3-content w3-white" style="max-width:1150px; max-height:2100px; border-style: outset;">
-            <div class="w3-display-container w3-content" style="max-width:1150px;">
-                <img class="w3-image" src="../static/images/taustaHD.jpeg" alt="Tausta" width="100%">
-            </div>
+  <div id="home" class="bg w3-content" style="max-width:1564px; max-height:2100px;">
+      <div id="layer_1" class="w3-content w3-white" style="max-width:1350px; max-height:2100px; border-style: outset;">
+          <div class="w3-display-container w3-content" style="max-width:1350px;">
+              <img class="w3-image" src="../static/images/taustaHD.jpeg" alt="Tausta" width="100%">
+          </div>
 
-            <div id="sticky" style="z-index: 1;">
-                <div id="navbar" class="navbar" style="z-index: 0">
-                    <div class="left-buttons">
-                        <button id="myHomebutton" class="w3-left w3-hide-medium w3-hide-large"><span class="homebutton material-symbols-outlined">home</span></button>
-                        <button class="hidden w3-left w3-hide-small" disabled><span class="material-symbols-outlined">home</span></button>
-                        <a class="hidden"><button class="w3-left" disabled><span class="material-symbols-outlined">home</span></button></a>
-                    </div>
-                    <div class="center-links">
-                        <a class="active w3-hide-small" href="/etusivu">Etusivu</a>
-                        <a class="w3-hide-small" href="/toiminta">Toiminta</a>
-                        <a class="w3-hide-small" href="/kuvagalleria">Kuvagalleria</a>
-                    </div>
-                    <div class="right-buttons">
-                        <a href="/kirjaudu" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">login</span></a>
-                        <button style="border-style:none;" id="myMenubutton" class="menubutton1 w3-right"><span id="openmenu" class="menubutton material-symbols-outlined"></span></button>
-                    </div>
-                </div>
-                <div class="mySidebar" id="sidebar">
-                    <div class="sidebar w3-white w3-card w3-bar-block w3-animate-opacity" id="mySidebar">
-                        <a href="/etusivu" class="w3-bar-item w3-button">Etusivu</a>
-                        <a href="/toiminta" class="w3-bar-item w3-button">Toiminta</a>
-                        <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
-                        <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
-                    </div>
-                </div>
-            </div>
+          <div id="sticky" style="z-index: 1;">
+              <div id="navbar" class="navbar" style="z-index: 0">
+                  <div class="left-buttons">
+                      <button id="myHomebutton" class="w3-left w3-hide-medium w3-hide-large"><span class="homebutton material-symbols-outlined">home</span></button>
+                      <button class="hidden w3-left w3-hide-small" disabled><span class="material-symbols-outlined">home</span></button>
+                      <a class="hidden"><button class="w3-left" disabled><span class="material-symbols-outlined">home</span></button></a>
+                  </div>
+                  <div class="center-links">
+                      <a class="active w3-hide-small" href="/etusivu">Etusivu</a>
+                      <a class="w3-hide-small" href="/toiminta">Toiminta</a>
+                      <a class="w3-hide-small" href="/tapahtumakalenteri">Tapahtumakalenteri</a>
+                      <a class="w3-hide-small w3-hide-medium" href="/kuvagalleria">Kuvagalleria</a>
+                  </div>
+                  <div class="right-buttons">
+                      <a href="/kirjaudu" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">login</span></a>
+                      <button style="border-style:none;" id="myMenubutton" class="menubutton1 w3-right"><span id="openmenu" class="menubutton material-symbols-outlined"></span></button>
+                  </div>
+              </div>
+              <div class="mySidebar" id="sidebar">
+                  <div class="sidebar w3-white w3-card w3-bar-block w3-animate-opacity" id="mySidebar">
+                      <a href="/etusivu" class="w3-bar-item w3-button">Etusivu</a>
+                      <a href="/toiminta" class="w3-bar-item w3-button">Toiminta</a>
+                      <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
+                      <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
+                  </div>
+              </div>
+          </div>
+          
+          
+          <div id="layer_2">
             <center>
-                <h2>Muhola Seura Ry Kirjautuminen</h2>
+                <h1>Muhola Seura Ry Kirjautuminen</h1>
             </center>
 
-            <form class="w3-container" action="login-in" method="POST" id="login-in">
+            <form class="w3-container" action="login-register" method="POST" id="login-in">
                 <div class="w3-section">
                     <label><b>Sähköposti</b></label>
                     <input class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Sähköposti" name="email_1" id="email_1" required>
                     <label><b>Salasana</b></label>
                     <input class="w3-input w3-border" type="password" placeholder="Salasana" name="password_1" id="password_1" required>
-                    <input class="w3-check w3-margin-top" type="checkbox" checked="checked"> Muista minut</button>
+                    <input class="w3-check w3-margin-top" type="checkbox" name="muista_minut" checked="checked"> Muista minut</button>
                     <span class="w3-right w3-margin-top w3-padding w3-hide-small">Unohditko <a href="#">salasanasi?</a></span>
                     <input class="w3-button w3-block w3-green w3-section w3-padding" type="submit" value="Kirjaudu sisään">
                     <?php if (isset($login_error)) { echo "<p style='color: red;'>$login_error</p>"; } ?>
@@ -99,7 +133,7 @@ if ($registration_attempt) {
                 </div>
             </form>
 
-            <form class="w3-container" action="register" method="POST" id="register-in" style="display:none;">
+            <form class="w3-container" action="login-register" method="POST" id="register-in">
                 <div class="w3-section">
                     <label><b>Käyttäjänimi</b></label>
                     <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Käyttäjänimi" name="name_2" id="name_2" required>
@@ -107,14 +141,14 @@ if ($registration_attempt) {
                     <input class="w3-input w3-border w3-margin-bottom" type="email" name="email_2" id="email_2" placeholder="Sähköposti" required>
                     <label><b>Salasana</b></label>
                     <input class="w3-input w3-border" type="password" name="password_2" id="password_2" placeholder="Salasana" required>
-                    <span class="w3-right w3-margin-top w3-padding w3-hide-small"><a href="#" onclick="toggleForms()">Kirjaudu sisään</a></span>
                     <?php if (isset($register_error)) { echo "<p style='color: red;'>$register_error</p>"; } ?>
                     <input class="w3-button w3-block w3-green w3-section w3-padding" type="submit" value="Luo käyttäjä">
+                    <p>On jo käyttäjä? <a href="#" onclick="toggleForms()">Kirjaudu sisään</a></p>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
+          </div>
+      </div>
+  </div>
 
 <script>
     function toggleForms() {

@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="w3-hide-small" href="#" onclick="toggleSection('kuvagalleria_1')">Kuvagalleria</a>
             </div>
                 <div class="right-buttons">
-                <a href="#" id="logoutButton" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">logout</span></a>
+                <a href="server/logout" id="logoutButton" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">logout</span></a>
                 <button style="border-style:none;" id="myMenubutton" class="menubutton1 w3-right"><span id="openmenu" class="menubutton material-symbols-outlined"></span></button>
             </div>
         </div>
@@ -338,7 +338,6 @@ document.addEventListener('DOMContentLoaded', function () {
 <script type="text/javascript" src="scripts/imageHandler.js"></script>
 <script type="text/javascript" src="scripts/scrollposition.js"></script>
 <script type="text/javascript" src="scripts/dynamicSubmit.js"></script>
-<script type="text/javascript" src="scripts/logout.js"></script>
 
 
 
