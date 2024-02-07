@@ -76,6 +76,7 @@ include "../static/server/connect.php";
             }
             ?>
           </p>
+          <br>
           <div id="ytvideo" SameSite="none" style="width:100% max-height:500px;">
             <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/tgbNym7vqY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
@@ -151,17 +152,18 @@ include "../static/server/connect.php";
           <h1><b>Tiedotteet</b></h1>
 
           <?php
-          $sql2 = "SELECT * FROM tiedotteet ORDER BY tärkeys DESC";
+          $sql2 = "SELECT * FROM tiedotteet ORDER BY tärkeys DESC, pvm DESC";
           $result = $conn->query($sql2);
           while ($row = $result->fetch_assoc()) {
             
 
               if ($row['tärkeys'] == 1)
-              {echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; max-height: 270px; overflow: scroll; text-overflow: ellipsis;">';
+              {
+              echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; max-height: 270px; overflow: scroll; text-overflow: ellipsis;">';
               echo '<p style="font-size: 12px; color: grey;">' . $row['pvm'] .'</p>';
               echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
               echo '<p>' . $row['teksti'] .'</p>';
-              echo '</div>';}
+              echo '</div><br>';}
     
               elseif ($row['tärkeys'] == 2)
               {echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; max-height: 270px; overflow: scroll; text-overflow: ellipsis;">';
@@ -169,7 +171,7 @@ include "../static/server/connect.php";
                 echo '<h4 class="w3-right" style="color: red;">TÄRKEÄ!</h4>';
                 echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
                 echo '<p>' . $row['teksti'] .'</p>';
-                echo '</div>'; }
+                echo '</div><br>'; }
 
     
 
@@ -181,7 +183,7 @@ include "../static/server/connect.php";
                 echo '<p style="color: blue;">Vain jäsenille</p>';
                 echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
                 echo '<p>' . $row['teksti'] .'</p>';
-                echo '</div>'; }
+                echo '</div><br>'; }
     
               elseif($row['tärkeys'] >= 4)
               {echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; max-height: 270px; overflow: scroll; text-overflow: ellipsis;">';
@@ -190,7 +192,7 @@ include "../static/server/connect.php";
                 echo '<h4 class="w3-right" style="color: red;">TÄRKEÄ!</h4>';
                 echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
                 echo '<p>' . $row['teksti'] .'</p>';
-                echo '</div>'; } 
+                echo '</div><br>'; } 
               } else {
                 echo "";
                
