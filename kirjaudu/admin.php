@@ -6,7 +6,7 @@ include "../static/server/connect.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['muhola_admin'])) {
-    header('Location: login');
+    header('Location: kirjaudu/server/logout');
     exit();
 }
 
@@ -28,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="scripts/navigation.js"></script>
+    <script type="text/javascript" src="kirjaudu/scripts/navigation.js"></script>
     <link rel="stylesheet" href="../static/styles/core.css">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="kirjaudu/styles/styles.css">
 </head>
 <body id="base" style="opacity:0;">
     
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="w3-hide-small" href="#" onclick="toggleSection('kuvagalleria_1')">Kuvagalleria</a>
             </div>
                 <div class="right-buttons">
-                <a href="server/logout" id="logoutButton" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">logout</span></a>
+                <a href="kirjaudu/server/logout" id="logoutButton" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">logout</span></a>
                 <button style="border-style:none;" id="myMenubutton" class="menubutton1 w3-right"><span id="openmenu" class="menubutton material-symbols-outlined"></span></button>
             </div>
         </div>
@@ -317,7 +317,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Include JavaScript -->
 
     <script type="text/javascript" src="../static/scripts/animation.js"></script>
-    <script type="text/javascript" src="scripts/quill.js"></script>
+    <script type="text/javascript" src="kirjaudu/scripts/quill.js"></script>
     <script type="text/javascript" src="../static/scripts/navigationbar.js"></script>
     <script type="text/javascript" src="../static/scripts/sidebar.js"></script>
 
@@ -334,10 +334,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<script type="text/javascript" src="scripts/eventHandler.js"></script>
-<script type="text/javascript" src="scripts/imageHandler.js"></script>
-<script type="text/javascript" src="scripts/scrollposition.js"></script>
-<script type="text/javascript" src="scripts/dynamicSubmit.js"></script>
+<script type="text/javascript" src="kirjaudu/scripts/eventHandler.js"></script>
+<script type="text/javascript" src="kirjaudu/scripts/imageHandler.js"></script>
+<script type="text/javascript" src="kirjaudu/scripts/scrollposition.js"></script>
+<script type="text/javascript" src="kirjaudu/scripts/dynamicSubmit.js"></script>
 
 
 

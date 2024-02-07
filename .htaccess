@@ -1,15 +1,7 @@
-# Run PHP without filename extension
 RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.*)$ $1.php
 
 ErrorDocument 404 /error/ERROR404.html
 ErrorDocument 403 /error/ERROR403.html
-
-RewriteCond %{REQUEST_FILENAME} -f 
-RewriteCond %{THE_REQUEST} \/$|\.php\ HTTP [NC] 
-RewriteRule ^(.*)$ - [L,R] 
 
 RewriteRule ^$ /etusivu [L,R=302]
 
@@ -18,14 +10,22 @@ RewriteRule ^/?toiminta/kirjaudu?$ /kirjaudu [L,R=302]
 
 RewriteRule ^/?etusivu/login?$ /kirjaudu [L,R=302]
 RewriteRule ^/?toiminta/login?$ /kirjaudu [L,R=302]
+RewriteRule ^/?tapahtumakalenteri/login?$ /kirjaudu [L,R=302]
+RewriteRule ^/?kuvagalleria/login?$ /kirjaudu [L,R=302]
 RewriteRule ^/?login?$ /kirjaudu [L,R=302]
+RewriteRule ^/?kirjaudu/server/logout?$ /kirjaudu/logout [L,R=302]
+RewriteRule ^/?kirjaudu/admin?$ /admin [L,R=302]
+RewriteRule ^/?kirjaudu/login?$ /kirjaudu [L,R=302]
 
 
-RewriteRule ^/?etusivu/index [R=404,END]
-RewriteRule ^/?etusivu/connect [R=404,END]
-RewriteRule ^/?toiminta/index [R=404,END]
-RewriteRule ^/?toiminta/connect [R=404,END]
 
-RewriteRule ^/?etusivu/?$ /etusivu/index.php [END]
-RewriteRule ^/?toiminta/?$ /toiminta/index.php [END]
-RewriteRule ^/?kirjaudu/?$ /kirjaudu/login.php [END]
+RewriteRule ^/?kirjaudu/?$ /kirjaudu/login\.php [END]
+RewriteRule ^/?kirjaudu/login-register?$ /kirjaudu/login-register\.php [END]
+RewriteRule ^/?admin?$ /kirjaudu/admin\.php [END]
+RewriteRule ^/?kirjaudu/logout?$ /kirjaudu/server/logout\.php [END]
+
+
+RewriteRule ^kirjaudu/login\.php$ [R=404,L]
+RewriteRule ^kirjaudu/login-register\.php$ [R=404,L]
+RewriteRule ^kirjaudu/server/logout\.php$ [R=404,L]
+RewriteRule ^kirjaudu/admin\.php$ [R=404,L]

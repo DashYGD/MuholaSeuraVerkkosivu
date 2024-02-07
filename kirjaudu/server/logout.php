@@ -1,8 +1,11 @@
 <?php
+session_start();
 
-// Destroy the session
+$_SESSION = array();
+
 session_destroy();
 
-// Redirect the user to the login page or any other appropriate page
-header("Location: ../../etusivu");
+setcookie('auth_token', '', time() - 3600, '/');
+
+header("Location: ../login");
 exit();

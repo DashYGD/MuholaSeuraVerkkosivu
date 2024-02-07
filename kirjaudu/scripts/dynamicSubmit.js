@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const formData = new FormData(form);
 
-            fetch("server/imageHandler.php", {
+            fetch("kirjaudu/server/imageHandler.php", {
                 method: "POST",
                 body: formData
             })
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const formData = new FormData(form);
 
-            fetch("server/eventHandler.php", {
+            fetch("kirjaudu/server/eventHandler.php", {
                 method: "POST",
                 body: formData
             })
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     var xhr = new XMLHttpRequest();
-xhr.open('GET', 'server/fetchPrevious.php', true);
+xhr.open('GET', 'kirjaudu/server/fetchPrevious.php', true);
 xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
         var responseData = JSON.parse(xhr.responseText);
@@ -97,7 +97,7 @@ function submitForm(selectedForm, selectedDisplay) {
             document.getElementById(selectedDisplay).innerHTML = this.responseText;
         }
     };
-    xhttp.open("POST", "server/eventHandler.php", true);
+    xhttp.open("POST", "kirjaudu/server/eventHandler.php", true);
     var formData = new FormData(document.getElementById(selectedForm));
     xhttp.send(formData);
 }

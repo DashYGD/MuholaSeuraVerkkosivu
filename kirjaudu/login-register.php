@@ -22,12 +22,12 @@ function setUserToken($user_id, $token, $conn) {
     $stmt->close();
 }
 
-if (isset($_POST['email_1'], $_POST['password_1'])) {
-    $username = $_POST['email_1'];
+if (isset($_POST['email-username_1'], $_POST['password_1'])) {
+    $login_input = $_POST['email-username_1'];
     $password = $_POST['password_1'];
 
-    $stmt = $conn->prepare("SELECT * FROM käyttäjät WHERE email = ?");
-    $stmt->bind_param("s", $username);
+    $stmt = $conn->prepare("SELECT * FROM käyttäjät WHERE (email = ? OR name = ?)");
+    $stmt->bind_param("ss", $login_input, $login_input);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -49,14 +49,14 @@ if (isset($_POST['email_1'], $_POST['password_1'])) {
             exit();
         } else {
             start_session_if_not_started();
-            $_SESSION['login_error'] = "Väärä sähköposti tai salasana";
+            $_SESSION['login_error'] = "Väärä sähköposti/käyttäjänimi tai salasana";
             $stmt->close();
             header("Location: login");
             exit();
         }
     } else {
         start_session_if_not_started();
-        $_SESSION['login_error'] = "Väärä käyttäjänimi tai salasana";
+        $_SESSION['login_error'] = "Väärä sähköposti/käyttäjänimi tai salasana";
         $stmt->close();
         header("Location: login");
         exit();
@@ -81,25 +81,40 @@ if (isset($_POST['name_2'], $_POST['email_2'], $_POST['password_2'])) {
         header("Location: login");
         exit();
     } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        
-        $stmt = $conn->prepare("INSERT INTO käyttäjät (name, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $name, $email, $hashed_password);
-        
-        if ($stmt->execute()) {
+        $stmt = $conn->prepare("SELECT name FROM käyttäjät WHERE name = ?");
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
             start_session_if_not_started();
-            $_SESSION['register_success'] = "Käyttäjä lisätty järjestelmään, ole hyvä ja kirjaudu sisään";
+            $_SESSION['register_error'] = "Valitsemasi käyttäjänimi on jo käytössä";
             $_SESSION['registration_attempt'] = true;
             $stmt->close();
             header("Location: login");
             exit();
         } else {
-            start_session_if_not_started();
-            $_SESSION['register_error'] = "Virhe käyttäjän lisäämisessä";
-            $_SESSION['registration_attempt'] = true;
-            $stmt->close();
-            header("Location: login");
-            exit();
+
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        
+            $stmt = $conn->prepare("INSERT INTO käyttäjät (name, email, password) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $name, $email, $hashed_password);
+            
+            if ($stmt->execute()) {
+                start_session_if_not_started();
+                $_SESSION['register_success'] = "Käyttäjä lisätty järjestelmään, ole hyvä ja kirjaudu sisään";
+                $_SESSION['registration_attempt'] = true;
+                $stmt->close();
+                header("Location: login");
+                exit();
+            } else {
+                start_session_if_not_started();
+                $_SESSION['register_error'] = "Virhe käyttäjän lisäämisessä";
+                $_SESSION['registration_attempt'] = true;
+                $stmt->close();
+                header("Location: login");
+                exit();
+            }
         }
     }
 }

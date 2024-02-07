@@ -120,8 +120,8 @@ if ($registration_attempt) {
 
             <form class="w3-container" action="login-register" method="POST" id="login-in">
                 <div class="w3-section">
-                    <label><b>Sähköposti</b></label>
-                    <input class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Sähköposti" name="email_1" id="email_1" required>
+                    <label><b>Sähköposti/Käyttäjänimi</b></label>
+                    <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Sähköposti/Käyttäjänimi" name="email-username_1" id="email-username_1" required>
                     <label><b>Salasana</b></label>
                     <input class="w3-input w3-border" type="password" placeholder="Salasana" name="password_1" id="password_1" required>
                     <input class="w3-check w3-margin-top" type="checkbox" name="muista_minut" checked="checked"> Muista minut</button>
