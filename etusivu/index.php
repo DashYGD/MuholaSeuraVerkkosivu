@@ -139,7 +139,7 @@ include "../static/server/connect.php";
               </p>
             </div>
 
-            <a href="/kirjaudu" class="footer-link w3-button">
+            <a href="/varaus" class="footer-link w3-button">
               <h5><b>VARAA</b></h5>
             </a>
           </div>
