@@ -12,10 +12,6 @@ function generateToken($length = 32) {
 }
 
 function setUserToken($user_id, $token, $conn) {
-    $_SESSION['id'] = $user_id;
-    $_SESSION['token'] = $token;
-    setcookie('auth_token', $token, time() + (86400 * 30), "/");
-
     $stmt = $conn->prepare("UPDATE käyttäjät SET token = ? WHERE id = ?");
     $stmt->bind_param("si", $token, $user_id);
     $stmt->execute();
@@ -24,16 +20,16 @@ function setUserToken($user_id, $token, $conn) {
 
 if (isset($_POST['email-username_1'], $_POST['password_1'])) {
     $login_input = $_POST['email-username_1'];
-    $password = $_POST['password_1'];
+    $user_password = $_POST['password_1'];
 
-    $stmt = $conn->prepare("SELECT * FROM käyttäjät WHERE (email = ? OR name = ?)");
+    $stmt = $conn->prepare("SELECT * FROM käyttäjät WHERE (email = ? OR username = ?)");
     $stmt->bind_param("ss", $login_input, $login_input);
     $stmt->execute();
     $result = $stmt->get_result();
     
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
+        if (password_verify($user_password, $row['user_password'])) {
             start_session_if_not_started();
             if (isset($_POST['muista_minut'])) {
                 setUserToken($row['id'], generateToken(), $conn);
@@ -45,7 +41,6 @@ if (isset($_POST['email-username_1'], $_POST['password_1'])) {
                 $_SESSION['muhola_user'] = $username;
                 header("Location: dashboard");
             }
-            $stmt->close();
             exit();
         } else {
             start_session_if_not_started();
@@ -64,9 +59,10 @@ if (isset($_POST['email-username_1'], $_POST['password_1'])) {
 }
 
 if (isset($_POST['name_2'], $_POST['email_2'], $_POST['password_2'])) {
-    $name = $_POST['name_2'];
+    $username = $_POST['name_2'];
     $email = $_POST['email_2'];
-    $password = $_POST['password_2'];
+    $user_password = $_POST['password_2'];
+    $verificationToken = generateToken();
 
     $stmt = $conn->prepare("SELECT email FROM käyttäjät WHERE email = ?");
     $stmt->bind_param("s", $email);
@@ -81,8 +77,8 @@ if (isset($_POST['name_2'], $_POST['email_2'], $_POST['password_2'])) {
         header("Location: login");
         exit();
     } else {
-        $stmt = $conn->prepare("SELECT name FROM käyttäjät WHERE name = ?");
-        $stmt->bind_param("s", $name);
+        $stmt = $conn->prepare("SELECT username FROM käyttäjät WHERE username = ?");
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -94,20 +90,22 @@ if (isset($_POST['name_2'], $_POST['email_2'], $_POST['password_2'])) {
             header("Location: login");
             exit();
         } else {
-
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $hashed_password = password_hash($user_password, PASSWORD_DEFAULT);
         
-            $stmt = $conn->prepare("INSERT INTO käyttäjät (name, email, password) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $name, $email, $hashed_password);
+            $stmt = $conn->prepare("INSERT INTO käyttäjät (username, email, user_password, verification_token) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $username, $email, $hashed_password, $verificationToken);
             
             if ($stmt->execute()) {
+                // sendVerificationEmail($email, $verificationToken);
                 start_session_if_not_started();
                 $_SESSION['register_success'] = "Käyttäjä lisätty järjestelmään, ole hyvä ja kirjaudu sisään";
                 $_SESSION['registration_attempt'] = true;
+                
                 $stmt->close();
                 header("Location: login");
                 exit();
             } else {
+                
                 start_session_if_not_started();
                 $_SESSION['register_error'] = "Virhe käyttäjän lisäämisessä";
                 $_SESSION['registration_attempt'] = true;
@@ -118,3 +116,16 @@ if (isset($_POST['name_2'], $_POST['email_2'], $_POST['password_2'])) {
         }
     }
 }
+
+/*
+function sendVerificationEmail($email, $verificationToken) {
+    $to = $email;
+    $subject = 'Vahvista sähköpostiosoitteesi';
+    $message = "Klikkaa alla olevaa linkkiä vahvistaaksesi sähköpostiosoitteesi:\n\n";
+    $message .= "http://localhost/verify.php?token=$verificationToken";
+    $headers = 'From: your@example.com' . "\r\n" .
+               'Reply-To: cogab57088@giratex.com' . "\r\n" .
+               'X-Mailer: PHP/' . phpversion();
+    mail($to, $subject, $message, $headers);
+}
+*/
