@@ -4,7 +4,7 @@ if (session_status() == PHP_SESSION_NONE){
 }
 include "../static/server/connect.php";
 
-if(!isset($_SESSION['muhola_admin'])){
+if(isset($_SESSION['muhola_user'])){
   header('Location: ../kirjaudu/server/logout');
   exit();
 }
@@ -23,9 +23,15 @@ if(!isset($_SESSION['muhola_admin'])){
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="../static/styles/core.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/fi.js"></script>
 </head>
 
 <body id="base" style="opacity:0;">
@@ -70,35 +76,53 @@ if(!isset($_SESSION['muhola_admin'])){
           </div>
         </div>
       </div>
-
-      <div class="content w3-margin-left">
+      <br>
+      <div style="height: ;">
+      <div class="content w3-margin-left w3-left" style="border-right: 1px solid gray; width: 49%;">
           <h1>Varaus</h1>
         <p>Sähköposti</p>
-        <input type="text" placeholder="Sähköposti" style="width: 400px;">
+        <input type="text" placeholder="Sähköposti" style="width: 400px;" required>
         <p>Puhelinnumero</p>
-        <input type="text" placeholder="Puhelinnumero">
+        <input type="text" placeholder="Puhelinnumero" required>
 
         <p>Päivämäärä</p>
-        <input type="date">
+        <input type="date" required>
         <br><br>
 
-          <input type="radio" name="vuokra" checked="check">
-          <label for="kokous">Kokousvuokra 40,00 €</label><br>
-          <input type="radio" name="vuokra">
-          <label for="paiva">Päivävuokra 150,00 €</label><br>
-          <input type="radio" name="vuokra">
-          <label for="viikonloppu">Viikonloppuvuokra 300,00 €</label>
-          <br><br>
-
+        <input type="radio" name="vuokra" checked="check">
+        <label for="kokous">Kokousvuokra 40,00 €</label><br>
+        <input type="radio" name="vuokra">
+        <label for="paiva">Päivävuokra 150,00 €</label><br>
+        <input type="radio" name="vuokra">
+        <label for="viikonloppu">Viikonloppuvuokra 300,00 €</label>
+        <br><br>
       </div>
-          <a href="#" class="footer-link w3-button w3-green" style="width: 100%; margin-bottom: 20px; margin-left: 0;">
+      
+        <div class="content w3-margin-left w3-right" style="height: 400px; width: 48%;">
+          <h1>Tai</h1>
+          <br>
+          <p>Ota yhteyttä Asko Rekoseen (+35840 846 5676) halutessasi tehdä varauksen tai saadaksesi lisätietoa asiasta.</p>
+        </div>
+      </div>
+
+        <a href="#" class="footer-link w3-button w3-green" style="width: 100%; margin-bottom: 20px; margin-left: 0; margin-top: 20px;">
             <h5><b>VARAA</b></h5>
           </a>
+<div id="layer_2" class="w3-content w3-white" style="max-width:1150px; max-height:1500px; justify-content: center;">
+            <div id="calendar-container">
+                <div id="calendar"></div>
+                <div id="eventOverlay">
+                
+                </div>
+                    <div id="eventDetails"></div>
+            </div>
+        </div>
 
         <div id="bottombar" class="bottombar">
           <span>@Copyright 2024</span>
         </div>
       </div>
+      
     </div>
   </div>
 
@@ -107,7 +131,7 @@ if(!isset($_SESSION['muhola_admin'])){
   <script type="text/javascript" src="../static/scripts/scrollposition.js"></script>
   <script type="text/javascript" src="../static/scripts/sidebar.js"></script>
   <script type="text/javascript" src="../static/scripts/navigationbar.js"></script>
-  <script type="text/javascript" src="../static/scripts/eventcalendarwidget.js"></script>
+  <script type="text/javascript" src="../static/scripts/eventcalendar.js"></script>
 </body>
 
 </html>
