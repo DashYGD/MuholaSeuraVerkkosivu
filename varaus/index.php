@@ -4,7 +4,7 @@ if (session_status() == PHP_SESSION_NONE){
 }
 include "../static/server/connect.php";
 
-if(isset($_SESSION['muhola_user'])){
+if(!isset($_SESSION['muhola_user'])){
   header('Location: ../kirjaudu/server/logout');
   exit();
 }
