@@ -26,8 +26,8 @@ if(!isset($_SESSION['muhola_user'])){
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="../static/styles/core.css">
+  <link rel="stylesheet" href="styles/styles.css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
@@ -77,13 +77,13 @@ if(!isset($_SESSION['muhola_user'])){
         </div>
       </div>
       <br>
-      <div style="height: ;">
-      <div class="content w3-margin-left w3-left" style="border-right: 1px solid gray; width: 49%;">
+      <div>
+      <div class="content w3-margin-left w3-left" style="width: 48%;">
           <h1>Varaus</h1>
         <p>Sähköposti</p>
-        <input type="text" placeholder="Sähköposti" style="width: 400px;" required>
+        <input type="text" placeholder="Sähköposti" style="width: 60%;" required>
         <p>Puhelinnumero</p>
-        <input type="text" placeholder="Puhelinnumero" required>
+        <input type="text" placeholder="Puhelinnumero" style="width: 40%;" required>
 
         <p>Päivämäärä</p>
         <input type="date" required>
@@ -96,11 +96,12 @@ if(!isset($_SESSION['muhola_user'])){
         <input type="radio" name="vuokra">
         <label for="viikonloppu">Viikonloppuvuokra 300,00 €</label>
         <br><br>
+        <a id="opencalendar" onclick="openCalendar()">Kalenteri</a>
       </div>
       
-        <div class="content w3-margin-left w3-right" style="height: 400px; width: 48%;">
+        <div class="content w3-margin-left tai">
           <h1>Tai</h1>
-          <br>
+
           <p>Ota yhteyttä Asko Rekoseen (+35840 846 5676) halutessasi tehdä varauksen tai saadaksesi lisätietoa asiasta.</p>
         </div>
       </div>
@@ -108,7 +109,8 @@ if(!isset($_SESSION['muhola_user'])){
         <a href="#" class="footer-link w3-button w3-green" style="width: 100%; margin-bottom: 20px; margin-left: 0; margin-top: 20px;">
             <h5><b>VARAA</b></h5>
           </a>
-<div id="layer_2" class="w3-content w3-white" style="max-width:1150px; max-height:1500px; justify-content: center;">
+   
+<div id="layer_2" class="w3-content w3-white" style="display: none;">
             <div id="calendar-container">
                 <div id="calendar"></div>
                 <div id="eventOverlay">
@@ -117,6 +119,7 @@ if(!isset($_SESSION['muhola_user'])){
                     <div id="eventDetails"></div>
             </div>
         </div>
+
 
         <div id="bottombar" class="bottombar">
           <span>@Copyright 2024</span>
@@ -131,7 +134,7 @@ if(!isset($_SESSION['muhola_user'])){
   <script type="text/javascript" src="../static/scripts/scrollposition.js"></script>
   <script type="text/javascript" src="../static/scripts/sidebar.js"></script>
   <script type="text/javascript" src="../static/scripts/navigationbar.js"></script>
-  <script type="text/javascript" src="../static/scripts/eventcalendar.js"></script>
+  <script type="text/javascript" src="../static/scripts/opencalendar.js"></script>
 </body>
 
 </html>
