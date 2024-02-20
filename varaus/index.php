@@ -78,37 +78,37 @@ if(!isset($_SESSION['muhola_user'])){
       </div>
       <br>
       <div>
-      <div class="content w3-margin-left w3-left" style="width: 48%;">
-          <h1>Varaus</h1>
+      <form id="applicationForm" action="process_form.php" method="post">
+    <div class="content w3-margin-left w3-left" style="width: 48%;">
+        <h1>Varaus</h1>
         <p>Sähköposti</p>
-        <input type="text" placeholder="Sähköposti" style="width: 60%;" required>
+        <input type="text" name="email" placeholder="Sähköposti" style="width: 60%;" required>
         <p>Puhelinnumero</p>
-        <input type="text" placeholder="Puhelinnumero" style="width: 40%;" required>
+        <input type="text" name="phone" placeholder="Puhelinnumero" style="width: 40%;" required>
 
         <p>Päivämäärä</p>
-        <input type="date" required>
+        <input type="date" name="date" required>
         <br><br>
 
-        <input type="radio" name="vuokra" checked="check">
+        <input type="radio" name="vuokra" value="kokous" checked="check">
         <label for="kokous">Kokousvuokra 40,00 €</label><br>
-        <input type="radio" name="vuokra">
+        <input type="radio" name="vuokra" value="paiva">
         <label for="paiva">Päivävuokra 150,00 €</label><br>
-        <input type="radio" name="vuokra">
+        <input type="radio" name="vuokra" value="viikonloppu">
         <label for="viikonloppu">Viikonloppuvuokra 300,00 €</label>
         <br><br>
         <a id="opencalendar" onclick="openCalendar()">Kalenteri</a>
-      </div>
-      
-        <div class="content w3-margin-left tai">
-          <h1>Tai</h1>
+    </div>
 
-          <p>Ota yhteyttä Asko Rekoseen (+35840 846 5676) halutessasi tehdä varauksen tai saadaksesi lisätietoa asiasta.</p>
-        </div>
-      </div>
+    <div class="content w3-margin-left tai">
+        <h1>Tai</h1>
+        <p>Ota suoraan yhteyttä Asko Rekoseen (+35840 846 5676) halutessasi tehdä varauksen tai saadaksesi lisätietoa asiasta.</p>
+    </div>
 
-        <a href="#" class="footer-link w3-button w3-green" style="width: 100%; margin-bottom: 20px; margin-left: 0; margin-top: 20px;">
-            <h5><b>VARAA</b></h5>
-          </a>
+    <button type="submit" class="footer-link w3-button w3-green" style="width: 100%; margin-bottom: 20px; margin-left: 0; margin-top: 20px;">
+        <h5><b>LÄHETÄ HAKEMUS</b></h5>
+    </button>
+</form>
    
 <div id="layer_2" class="w3-content w3-white" style="display: none;">
             <div id="calendar-container">
