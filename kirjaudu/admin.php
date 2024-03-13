@@ -13,6 +13,7 @@ if (!isset($_SESSION['muhola_admin'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include "server/eventHandler.php";
     include "server/imageHandler.php";
+    include "server/bulletHandler.php";
 }
 
 ?>
@@ -105,7 +106,104 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     ?>
                 </div>
+            </div><br>
+
+            <div class="w3-card-4 w3-white">
+                <div class="w3-container w3-blue" id="tiedotteet">
+                    <h2>Tiedotteet</h2>
+                </div>
+
+                <form method="POST" class="w3-container" id="searchForm_0" style="display:flex; position: relative; flex-direction: column; max-width: 100%; margin: 2%; justify-content: center; align-items: center;">
+                    <input
+                        type="text"
+                        id="searchInput_0"
+                        oninput='searchBullets(event)'
+                        name="searchInput_0"
+                        placeholder="Hae tiedotteita"
+                        style="display:flex; position: relative; width: 100%;"
+                        />
+                    <input type="hidden" id="submitButton_0" name="submitButton_0">
+                    <div style="display:flex; position: relative; flex-direction: column; width: 100%; align-items: center;">
+                        <div class="w3-bar-block w3-white w3-card" style="display:flex; position: absolute; flex-direction: column; align-item: center; justify-content:center; z-index:5; margin-left: 2%; margin-right: 2%; width:100%;" id="searchResultsContainer_0"></div>
+                    </div>
+                </form>
+
+                <?php
+                echo' <div id="searchResults_0" class="w3-container">';
+                if (isset($bullets) && !isset($_POST['clearBulletForm'])) {
+                    while ($row = mysqli_fetch_assoc($bullets)) {
+                        echo '<div class="w3-container">';
+                        echo '<form method="POST" class="bullet-update-form" id="form___' . $row['id'] . '">';
+                        echo '<input type="hidden" name="bulletId" value="' . $row['id'] . '">';
+                        echo '<p><label>Päivämäärä:</label>';
+                        echo '<input type="date" name="newDate" value="' . $row['pvm'] . '"></p>';
+                        echo '<p><label>Otsikko:</label>';
+                        echo '<input type="text" name="newTitle" value="' . $row['otsikko'] . '"></p>';
+                        echo '<br><label>Tiedote:</label><br>';
+                        echo '<div id="editor___' . $row['id'] . '" style="overflow: scroll; max-height: 150px;">' . $row['teksti'] . ' </div>';
+                        echo '<p><input type="submit" name="updateBullet" onclick="updateHiddenInput___' . $row['id'] . '(); " value="Päivitä">';
+                        echo '<input type="hidden" name="newDescription___' . $row['id'] . '" id="newDescription___' . $row['id'] . '">
+                        <input type="button" name="clearBullet" onclick="clearBullets()" id="clearBullet" value="Lisää uusi"></form>';
+                        echo '<form method="POST" id="clearBulletForm">
+                        </form>';
+                        echo '</div>';
+                                
+                        echo '<script>var quill___' . $row['id'] . ' = new Quill("#editor___' . $row['id'] . '", { theme: "snow", name: "newDescription___' . $row['id'] . '" });
+                            
+                                console.log(document.getElementById("newDescription___' . $row['id'] . '").value);
+                                function updateHiddenInput___' . $row['id'] . '() {
+                                    var quillContent = quill___' . $row['id'] . '.root.innerHTML;
+                                    console.log(quillContent);
+                                            
+
+                                    document.getElementById("newDescription___' . $row['id'] . '").value = quillContent;
+                                }
+                            </script>';
+                    }
+                } else {
+                    echo '<div>';
+                    echo '<form method="POST" class="w3-container" id="newBulletForm">';
+                    echo '<p><label>Päivämäärä:</label>';
+                    echo '<input type="date" name="newDate" required></p>';
+                    echo '<p><label>Otsikko:</label>';
+                    echo '<input type="text" name="newTitle" required></p>';
+                    echo '<br><label>Tiedote:</label><br>';
+                    echo '<div id="editor_newBullet" style="overflow: scroll; max-height:200px;"></div>';
+                    echo '<p><input type="submit" name="addBullet" onclick="updateHiddenInput_0();" value="Lisää"></p>';
+                    echo '<input type="hidden" name="newDescription_0" id="newDescription_0">';
+                    echo '</form></div>';
+
+                    echo '<script>
+                        var quill_new_0;
+
+                        function initQuill_0() {
+                            if (!quill_new_0) {
+                                quill_new_0 = new Quill("#editor_newBullet", { theme: "snow" });
+                            }
+                        }
+
+                        function updateHiddenInput_0() {
+                            if (quill_new_0) {
+                                var quillContent = quill_new_0.root.innerHTML;
+                                console.log(quillContent);
+                                document.getElementById("newDescription_0").value = quillContent;
+                            }
+                        }
+
+                        document.addEventListener("DOMContentLoaded", function() {
+                            initQuill_0();
+                        });
+                        
+                    </script>';
+
+                    echo '<br><h3><label>Viimeisin tiedote:</label></h3>';
+                    echo '<div id="previous-bullet-container"></div>';
+                }
+                echo '</div>';
+                ?>
+                <br>
             </div>
+
         </div>
 
         <!-- Section 2: Toiminta -->
@@ -211,7 +309,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo '<p><label>Otsikko:</label>';
                     echo '<input type="text" name="newTitle" required></p>';
                     echo '<br><label>Tietoa tapahtumasta:</label><br>';
-                    echo '<div id="editor_newEvent" style="max-height:200px;"></div>';
+                    echo '<div id="editor_newEvent" style="overflow: scroll; max-height:200px;"></div>';
                     echo '<p><input type="submit" name="addEvent" onclick="updateHiddenInput_5();" value="Lisää"></p>';
                     echo '<input type="hidden" name="newDescription_1" id="newDescription_1">';
                     echo '</form></div>';
@@ -219,7 +317,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo '<script>
                         var quill_new_1;
 
-                        function initQuill() {
+                        function initQuill_1() {
                             if (!quill_new_1) {
                                 quill_new_1 = new Quill("#editor_newEvent", { theme: "snow" });
                             }
@@ -234,7 +332,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
 
                         document.addEventListener("DOMContentLoaded", function() {
-                            initQuill();
+                            initQuill_1();
                         });
                         
                     </script>';
@@ -335,6 +433,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <script type="text/javascript" src="kirjaudu/scripts/eventHandler.js"></script>
+<script type="text/javascript" src="kirjaudu/scripts/BulletHandler.js"></script>
 <script type="text/javascript" src="kirjaudu/scripts/imageHandler.js"></script>
 <script type="text/javascript" src="kirjaudu/scripts/scrollposition.js"></script>
 <script type="text/javascript" src="kirjaudu/scripts/dynamicSubmit.js"></script>

@@ -152,53 +152,19 @@ include "../static/server/connect.php";
           <h1><b>Tiedotteet</b></h1>
 
           <?php
-          $sql2 = "SELECT * FROM tiedotteet ORDER BY tärkeys DESC, pvm DESC";
+          $sql2 = "SELECT * FROM tiedotteet ORDER BY pvm DESC LIMIT 4";
           $result = $conn->query($sql2);
-          while ($row = $result->fetch_assoc()) {
-            
 
-              if ($row['tärkeys'] == 1)
-              {
+          while ($row = $result->fetch_assoc()) {
               echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; height: auto; max-height: 400px; overflow: scroll; text-overflow: ellipsis;">';
               echo '<p style="font-size: 12px; color: grey;">' . $row['pvm'] .'</p>';
               echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
               echo '<p>' . $row['teksti'] .'</p>';
-              echo '</div><br>';}
-    
-              elseif ($row['tärkeys'] == 2)
-              {echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; height: auto; max-height: 400px; overflow: scroll; text-overflow: ellipsis;">';
-                echo '<p style="font-size: 12px; color: grey;">' . $row['pvm'] .'</p>';
-                echo '<h4 class="w3-right" style="color: red;">TÄRKEÄ!</h4>';
-                echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
-                echo '<p>' . $row['teksti'] .'</p>';
-                echo '</div><br>'; }
-
-    
-
-              if (isset($_SESSION['muhola_user'])){
-
-              if($row['tärkeys'] == 3)
-              {echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; height: auto; max-height: 400px; overflow: scroll; text-overflow: ellipsis;">';
-                echo '<p style="font-size: 12px; color: grey;">' . $row['pvm'] .'</p>';
-                echo '<p style="color: blue;">Vain jäsenille</p>';
-                echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
-                echo '<p>' . $row['teksti'] .'</p>';
-                echo '</div><br>'; }
-    
-              elseif($row['tärkeys'] >= 4)
-              {echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; height: auto; max-height: 400px; overflow: scroll; text-overflow: ellipsis;">';
-                echo '<p style="font-size: 12px; color: grey;">' . $row['pvm'] .'</p>';
-                echo '<p style="color: blue;">Vain jäsenille</p>';
-                echo '<h4 class="w3-right" style="color: red;">TÄRKEÄ!</h4>';
-                echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
-                echo '<p>' . $row['teksti'] .'</p>';
-                echo '</div><br>'; } 
-              } else {
-                echo "";
-               
-            }}
+              echo '</div><br>';
+          }
           ?>
         </div>
+
 
         <div id="bottombar" class="bottombar">
           <span>@Copyright 2024</span>

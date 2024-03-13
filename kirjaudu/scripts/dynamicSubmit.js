@@ -49,6 +49,28 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    const bulletUpdateForms = document.querySelectorAll(".bullet-update-form");
+
+    bulletUpdateForms.forEach(form => {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch("kirjaudu/server/bulletHandler.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    });
+
     var xhr = new XMLHttpRequest();
 xhr.open('GET', 'kirjaudu/server/fetchPrevious.php', true);
 xhr.onreadystatechange = function() {
@@ -62,6 +84,16 @@ xhr.onreadystatechange = function() {
                                         '<h2><b>' + imageData.kuva_otsikko + '</b></h2>' +
                                         '<img src="' + imageData.kuva + '" alt="' + imageData.kuva_tietoa + '" style="width:100%;">' +
                                         '<p>' + imageData.kuva_tietoa + '</p>' +
+                                        '</center></div>';
+        }
+
+        var bulletContainer = document.getElementById('previous-bullet-container');
+        if (bulletContainer && responseData.tiedotteet) {
+            var bulletData = responseData.tiedotteet;
+            bulletContainer.innerHTML = '<div class="w3-card-4 w3-container w3-white" style="width:50%; overflow:hidden;">' +
+                                        '<p>' + bulletData.pvm + '</p>' +
+                                        '<center><h2><b>' + bulletData.otsikko + '</b></h2>' +
+                                        '<p>' + bulletData.teksti + '<br></p>' +
                                         '</center></div>';
         }
         
@@ -86,6 +118,11 @@ xhr.send();
 function clearImages() {
     imageForm = document.getElementById('clearImageForm');
     imageForm.submit();
+}
+
+function clearBullets() {
+    bulletForm = document.getElementById('clearBulletForm');
+    bulletForm.submit();
 }
 
 
