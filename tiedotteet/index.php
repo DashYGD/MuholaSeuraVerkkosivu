@@ -26,7 +26,7 @@ include "../static/server/connect.php";
   <!-- Page Start -->
   <div id="home" class="bg w3-content" style="max-width:1564px; max-height:2100px;">
 
-    <div id="layer_1" class="w3-content w3-white" style="max-width:1150px; max-height:5000px;">
+    <div id="layer_1" class="w3-content w3-white" style="max-width:1150px; max-height:1600px;">
 
       <!-- Image in Display Container -->
       <div class="w3-display-container w3-content" style="max-width:1150px;">
@@ -65,20 +65,23 @@ include "../static/server/connect.php";
         </div>
       </div>
 
-      <!--About-->
-      <div id="kuvagalleria" class="gallery-container w3-display-container w3-content w3-padding-16" style="max-width:1150px; max-height:5000px;">
-           <?php
-          $sql = "SELECT * FROM kuvagalleria";
-          $result = $conn->query($sql);
+        <!-- Tiedotteet -->
+
+        <header class="w3-container w3-center">
+          <h1 style="font-size: 45px;"><b>Tiedotteet</b></h1>
+        </header>
+              
+        <div id="Tiedotteet" class="w3-display-container w3-center w3-content w3-padding-16" style="display: flex; flex-direction: column; width:100%; height: 1000px; overflow: auto;">
+          <?php
+          $sql2 = "SELECT * FROM tiedotteet ORDER BY pvm DESC";
+          $result = $conn->query($sql2);
+
           while ($row = $result->fetch_assoc()) {
-            echo '
-            <div class="gallery">
-            <div class="img-title">' . $row["kuva_otsikko"] . '</div>';
-            echo '<a target="_blank" href="' . $row['kuva'] . '">';
-            echo '<img src="' . $row["kuva"] . '" alt="testi_kuva"><br>';
-            echo '</a>
-            <div class="img-desc"><p>'. $row["kuva_tietoa"] . '</p></div>
-          </div>';
+              echo '<div class="w3-container w3-content w3-padding-16 w3-card-4" style="width: 90%; height: 100%; overflow: auto; ">';
+              echo '<p style="font-size: 12px; color: grey;">' . $row['pvm'] .'</p>';
+              echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
+              echo '<p>' . $row['teksti'] .'</p>';
+              echo '</div><br>';
           }
           ?>
         </div>

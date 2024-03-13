@@ -60,6 +60,7 @@ include "../static/server/connect.php";
             <a href="/toiminta" class="w3-bar-item w3-button">Toiminta</a>
             <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
             <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
+            <a href="/tiedotteet" class="w3-bar-item w3-button">Tiedotteet</a>
           </div>
         </div>
 

@@ -59,6 +59,7 @@ include "../static/server/connect.php";
             <a href="/toiminta" class="w3-bar-item w3-button">Toiminta</a>
             <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
             <a href="/kuvagalleria" class="w3-bar-item w3-button">Kuvagalleria</a>
+            <a href="/tiedotteet" class="w3-bar-item w3-button">Tiedotteet</a>
           </div>
         </div>
       </div>
@@ -78,7 +79,7 @@ include "../static/server/connect.php";
           </p>
           <br>
           <div id="ytvideo" SameSite="none" style="width:100% max-height:500px;">
-            <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/tgbNym7vqY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="100%" height="100%" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
 
@@ -143,20 +144,22 @@ include "../static/server/connect.php";
               <h5><b>VARAA</b></h5>
             </a>
           </div>
-        </div>
+        </div><br>
 
 
         <!-- Tiedotteet -->
         
-        <div class="w3-display-container w3-left w3-content" style="margin-left: 2.5%; margin-bottom: 5%;">
-          <h1><b>Tiedotteet</b></h1>
+        <div id="Tiedotteet" class="w3-display-container w3-center w3-content w3-padding-16" style="display: flex; flex-direction: column; width:100%; height:auto;">
+            <header class="w3-container">
+              <h1 style="font-size: 45px;"><b>Tiedotteet</b></h1>
+            </header>
 
           <?php
           $sql2 = "SELECT * FROM tiedotteet ORDER BY pvm DESC LIMIT 4";
           $result = $conn->query($sql2);
 
           while ($row = $result->fetch_assoc()) {
-              echo '<div id="tiedotteet" class="w3-content w3-padding-16 w3-card-4" style="padding: 15px; margin: 2.5%; height: auto; max-height: 400px; overflow: scroll; text-overflow: ellipsis;">';
+              echo '<div class="w3-container w3-content w3-padding-16 w3-card-4" style="width: 90%; max-height: 400px; text-overflow: scroll; ">';
               echo '<p style="font-size: 12px; color: grey;">' . $row['pvm'] .'</p>';
               echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
               echo '<p>' . $row['teksti'] .'</p>';

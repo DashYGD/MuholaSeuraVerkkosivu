@@ -3,10 +3,8 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* Removed overflow: hidden; */
 }
 
-/* Combined .navbar styles into a single declaration */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -17,11 +15,10 @@ body {
     padding: 0;
     overflow: hidden;
     background-color: #333;
-    border-top-style: outset; /* Added border-top-style */
-    border-bottom-style: outset; /* Added border-bottom-style */
+    border-top-style: outset; 
+    border-bottom-style: outset; 
 }
 
-/* Removed duplicate declaration for .navbar */
 .sidebar {
     display: none;
     z-index: 5;
@@ -29,8 +26,6 @@ body {
     position: absolute;
     right: 0;
 }
-
-/* Other CSS rules remain unchanged */
 
 
 .fc-toolbar { text-transform: capitalize; }
