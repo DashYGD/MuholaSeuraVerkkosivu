@@ -14,10 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    var containerId_0 = document.getElementById("searchForm_0").getAttribute('id');
     var containerId_1 = document.getElementById("tapahtumakalenteri_1").getAttribute('id');
     var containerId_2 = document.getElementById("etusivu_1").getAttribute('id');
-    var containerId_0 = document.getElementById("searchForm_0").getAttribute('id');
     var containerId_3 = document.getElementById("toiminta_1").getAttribute('id');
+    var containerId_4 = document.getElementById("tietosuoja_1").getAttribute('id');
 
     var clearEventsButton = document.getElementById("clearEvents");
     if (clearEventsButton) {
@@ -58,6 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (form_2) {
         form_2.addEventListener('submit', function() {
             storeContainerId(containerId_3);
+        });
+    }
+    var form_3 = document.getElementById('form_3');
+    if (form_3) {
+        form_3.addEventListener('submit', function() {
+            storeContainerId(containerId_4);
         });
     }
 

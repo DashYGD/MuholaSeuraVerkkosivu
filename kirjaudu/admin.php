@@ -49,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="w3-hide-small" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
                 <a class="w3-hide-small" href="#" onclick="toggleSection('tapahtumakalenteri_1')">Tapahtumakalenteri</a>
                 <a class="w3-hide-small" href="#" onclick="toggleSection('kuvagalleria_1')">Kuvagalleria</a>
+                <a class="w3-hide-small w3-hide-medium" href="#" onclick="toggleSection('tietosuoja_1')">Tietosuoja</a>
             </div>
                 <div class="right-buttons">
                 <a href="kirjaudu/server/logout" id="logoutButton" role="button" class="w3-right"><span class="loginbutton material-symbols-outlined">logout</span></a>
@@ -62,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('toiminta_1')">Toiminta</a>
             <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('tapahtumakalenteri_1')">Tapahtumakalenteri</a>
             <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('kuvagalleria_1')">Kuvagalleria</a>
+            <a class="w3-bar-item w3-button" href="#" onclick="toggleSection('tietosuoja_1')">Tietosuoja</a>
             </div>
         </div>
     </div><br>
@@ -76,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <form method="POST" class="w3-container" id="form_1">
                     <h3>Tietoa meistä</h3>
-                    <p><div id="editor_1" name="tietoameista_1">
+                    <p><div id="editor_1" name="tietosuoja_1">
 
                         <?php
                         $sql1 = "SELECT tietoa FROM etusivu";
@@ -408,6 +410,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo '</div>';
                 ?>
                 <br>
+            </div>
+        </div>
+
+
+        <!-- Section 5: Tietosuoja -->
+        <div class="sections" id="tietosuoja_1" style="display:none;">
+            <div class="w3-card-4 w3-white">
+                <div class="w3-container w3-green">
+                    <h2>Tietosuojalauseke</h2>
+                </div>
+                
+                <form method="POST" class="w3-container"  id="form_3">
+                    <p><div id="editor_3" name="tietosuoja_1">
+                        <?php
+                        $sql3 = "SELECT teksti FROM tietosuoja";
+                        $result= $conn->query($sql3);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo $row["teksti"];
+                            }
+                        }
+                        ?>
+                    </div></p>
+                    <!--- Inputs -->
+                    <input type="hidden" name="tietoatietosuoja_1" id="tietoatietosuoja-input_1">
+                    <button type="button" name="submit_3" onclick="updateHiddenInputs_3(), submitForm('form_3', 'tietosuoja_2')">Muokkaa</button>
+                </form><br>
+            </div><br>
+            <!--- Display Content -->
+            <div class="w3-card-4 w3-white">
+                <br><h1 class="w3-center">Tietosuojalauseke</h3>
+                <div id="tietosuoja_2">
+                    <?php
+                    $sql3 = "SELECT teksti FROM tietosuoja";
+                    $result= $conn->query($sql3);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo $row["teksti"];
+                        }
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>

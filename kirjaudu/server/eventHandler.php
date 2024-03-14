@@ -66,6 +66,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    if (isset($_POST['tietoatietosuoja_1'])) {
+        include "../../static/server/connect.php";
+        $tietoatietosuoja = $_POST['tietoatietosuoja_1'];
+        $sql3 = "UPDATE tietosuoja SET teksti = '$tietoatietosuoja'";
+        $result3 = mysqli_query($conn, $sql3);
+        
+        $sql3_select = "SELECT teksti FROM tietosuoja";
+        $result_select = $conn->query($sql3_select);
+        
+        if ($result_select->num_rows > 0) {
+            while ($row = $result_select->fetch_assoc()) {
+                echo $row["teksti"];
+            }
+        } else {
+            echo "Error: Unable to fetch updated content";
+        }
+    }
+
     if(isset($_POST['addEvent'])) {
         include "../static/server/connect.php";
         if(isset($_POST['newDate']) && isset($_POST['newTitle']) && isset($_POST['newDescription_1'])) {

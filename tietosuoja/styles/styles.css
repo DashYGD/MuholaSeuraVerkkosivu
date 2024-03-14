@@ -1,0 +1,12 @@
+@media (max-width: 601px) {
+    body {
+        background-image: none;
+    }
+}
+
+@media (max-width: 991px) {
+    #tietoa {
+        max-width: 100% !important;
+        padding-right: 5%;
+    }
+}

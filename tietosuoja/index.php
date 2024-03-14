@@ -10,18 +10,18 @@ include "../static/server/connect.php";
   <title>Muhola Seuran Kotisivut</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="../static\images\favicon.ico">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/W3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/W3.css"> <!-- W3Schoolsin bootstrap -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="../static/styles/core.css">
 </head>
 
-<body id="base" style="opacity:0;"> <!-- Sivulla ei näy mitään, koska tuo mysql:stä haettu kuvan path ei toimi, sitkun toimii niin pitäisi animaatiokin toimia -->
+<body id="base" style="opacity:0;">
   <button id="scrollPositionBtn" style="display: none;"></button>
   <!-- Page Start -->
   <div id="home" class="bg w3-content" style="max-width:1564px; max-height:2100px;">
@@ -55,7 +55,7 @@ include "../static/server/connect.php";
         </div>
 
         <div class="mySidebar" id="sidebar">
-          <div class="w3-white w3-card w3-bar-block w3-animate-opacity" style="display: none; z-index: 5; max-width: 40%; position: absolute; right: 0; border-top-style: outset; border-bottom-style: outset;" id="mySidebar">
+          <div class="sidebar w3-white w3-card w3-bar-block w3-animate-opacity" id="mySidebar">
             <a href="/etusivu" class="w3-bar-item w3-button">Etusivu</a>
             <a href="/toiminta" class="w3-bar-item w3-button">Toiminta</a>
             <a href="/tapahtumakalenteri" class="w3-bar-item w3-button">Tapahtumakalenteri</a>
@@ -64,39 +64,28 @@ include "../static/server/connect.php";
             <a href="/tietosuoja" class="w3-bar-item w3-button">Tietosuoja</a>
           </div>
         </div>
+
       </div>
 
-      <div id="layer_2" class="w3-content w3-white" style="max-width:1150px; max-height:1000px; overflow: auto;">
-
-        <!-- Tiedotteet -->
-
-        <header class="w3-container w3-center">
-          <h1 style="font-size: 45px;"><b>Tiedotteet</b></h1>
-        </header>
-              
-        <div id="Tiedotteet" class="w3-display-container w3-center w3-content w3-padding-16" style="display: flex; flex-direction: column; width:100%; height: 100%; overflow: auto;">
+      <div class="content w3-center">
+        <br><h1>Tietosuojalauseke</h3>
+        <!-- About -->
+        <div id="tietoa" class="w3-display-container w3-center w3-content w3-padding-16" style="width:80%;">
           <?php
-          $sql2 = "SELECT * FROM tiedotteet ORDER BY pvm DESC";
-          $result = $conn->query($sql2);
-
+          $sql = "SELECT teksti FROM tietosuoja";
+          $result = $conn->query($sql);
           while ($row = $result->fetch_assoc()) {
-              echo '<div class="w3-container w3-content w3-padding-16 w3-card-4" style="width: 90%; height: 100%; overflow: auto; ">';
-              echo '<p style="font-size: 12px; color: grey;">' . $row['pvm'] .'</p>';
-              echo '<h2 style="text-decoration: underline;">' . $row['otsikko'] . '</h2>';
-              echo '<p>' . $row['teksti'] .'</p>';
-              echo '</div><br>';
+            echo "" . $row["teksti"];
           }
           ?>
         </div>
-        </div>
-
-        <div id="bottombar" class="bottombar">
-          <span>@Copyright 2024</span>
-        </div>
+      </div>
+      <div id="bottombar" class="bottombar">
+        <span>@Copyright 2024</span>
       </div>
     </div>
   </div>
-  
+
   <script type="text/javascript" src="../static/scripts/animation.js"></script>
   <script type="text/javascript" src="../static/scripts/keyboard-accessibility.js"></script>
   <script type="text/javascript" src="../static/scripts/scrollposition.js"></script>
@@ -105,5 +94,3 @@ include "../static/server/connect.php";
 </body>
 
 </html>
-      
-</body>
