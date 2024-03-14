@@ -81,7 +81,8 @@ if(!isset($_SESSION['muhola_user'])){
       <br>
       <div>
       <form id="applicationForm" action="process_form.php" method="post">
-    <div class="content w3-margin-left w3-left" style="width: 48%;">
+        
+    <div class="content w3-left" style="width: 40%; margin-left: 40px; border-right: 1px solid black; margin-right: 20px;">
         <h1>Varaus</h1>
         <p>Sähköposti</p>
         <input type="text" name="email" placeholder="Sähköposti" style="width: 60%;" required>
@@ -102,7 +103,7 @@ if(!isset($_SESSION['muhola_user'])){
         <a id="opencalendar" onclick="openCalendar()">Kalenteri</a>
     </div>
 
-    <div class="content w3-margin-left tai">
+    <div class="content tai" style="padding-right: 20px; margin-right: 10px;">
         <h1>Tai</h1>
         <p>Ota suoraan yhteyttä Asko Rekoseen (+35840 846 5676) halutessasi tehdä varauksen tai saadaksesi lisätietoa asiasta.</p>
     </div>
