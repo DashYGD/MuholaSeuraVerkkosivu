@@ -1,4 +1,8 @@
 <?php
+
+include "../static/server/connect.php";
+$sql = "SELECT * FROM varaus";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     /*
@@ -13,11 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mail($to, $subject, $message);
     */
+
+    
+
     header("Location: /etusivu");
     exit();
 }
 else {
-    echo "Virhe varaus pyynnön lähettämisessä.";
-    echo "<a href='/etusivu'>etusivu</a>";
+    //echo "Virhe varaus pyynnön lähettämisessä.";
+    //echo "<a href='/etusivu'>etusivu</a>";
+    header("Location: /etusivu");
 }
 ?>
